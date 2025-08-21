@@ -1,8 +1,7 @@
-import { Link } from "wouter";
 import { AuthModal } from "../Modals/AuthModal";
 import { useState } from "react";
 
-export const LandingPage = () => {
+export const WelcomePage = () => {
   const [isModalRegisterActive, setIsModalRegisterActive] = useState(false);
   const [isModalLoginActive, setIsModalLoginActive] = useState(false);
   return (

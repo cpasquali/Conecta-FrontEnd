@@ -22,7 +22,7 @@ export const DeleteUserModal = ({
     }
     setUser(null);
     setIsModalDeleteActive(false);
-    setLocation("/landing");
+    setLocation("/welcome");
   };
 
   return (

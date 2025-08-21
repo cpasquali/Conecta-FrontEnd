@@ -4,7 +4,7 @@ import { PostList } from "../PostList/PostList";
 import { Sidebar } from "../Sidebar/Sidebar";
 import { ProfileContainer } from "../ProfileContainer/ProfileContainer";
 import { PostInfoContainer } from "../PostInfoContainer/PostInfoContainer";
-import { LandingPage } from "../LandingPage/LandingPage";
+import { WelcomePage } from "../WelcomePage/WelcomePage";
 import { useAuth } from "../../context/AuthUserContext";
 
 export const MainContent = () => {
@@ -19,15 +19,15 @@ export const MainContent = () => {
           <main className="flex-1 sm:pl-[20rem] pb-[4rem] ">
             <Switch>
               <Route path="/profile/:id" component={ProfileContainer} />
-              <Route path="/" component={PostList} />
+              <Route path="/home" component={PostList} />
               <Route path="/explore" component={ExploreContainter} />
               <Route path="/post/:id" component={PostInfoContainer} />
             </Switch>
-            {location === "/" && <Sidebar position="right" />}
+            {location === "/home" && <Sidebar position="right" />}
           </main>
         </div>
       ) : (
-        <LandingPage />
+        <WelcomePage />
       )}
     </>
   );

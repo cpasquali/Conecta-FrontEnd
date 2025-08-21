@@ -14,7 +14,7 @@ export const Sidebar = ({ position }) => {
   const logOut = () => {
     setUser("");
     localStorage.removeItem("currentUser");
-    setLocation("/landing");
+    setLocation("/welcome");
   };
 
   const fetchApi = async () => {

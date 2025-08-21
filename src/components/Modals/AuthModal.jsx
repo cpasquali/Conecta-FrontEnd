@@ -56,7 +56,7 @@ export const AuthModal = ({
       return;
     }
 
-    setLocation("/");
+    setLocation("/home");
     setUser(response.user);
   };
 
