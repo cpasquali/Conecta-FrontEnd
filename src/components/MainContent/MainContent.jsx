@@ -6,12 +6,15 @@ import { ProfileContainer } from "../ProfileContainer/ProfileContainer";
 import { PostInfoContainer } from "../PostInfoContainer/PostInfoContainer";
 import { WelcomePage } from "../WelcomePage/WelcomePage";
 import { useAuth } from "../../context/AuthUserContext";
+import { useEffect } from "react";
 
 export const MainContent = () => {
   const [location, setLocation] = useLocation();
   const { user } = useAuth();
 
-  user ? setLocation("/home") : setLocation("welcome");
+  useEffect(() => {
+    user ? setLocation("/home") : setLocation("welcome");
+  }, []);
 
   return (
     <>
