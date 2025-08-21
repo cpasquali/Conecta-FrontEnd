@@ -8,8 +8,10 @@ import { WelcomePage } from "../WelcomePage/WelcomePage";
 import { useAuth } from "../../context/AuthUserContext";
 
 export const MainContent = () => {
-  const [location, _] = useLocation();
+  const [location, setLocation] = useLocation();
   const { user } = useAuth();
+
+  user ? setLocation("/home") : setLocation("welcome");
 
   return (
     <>
