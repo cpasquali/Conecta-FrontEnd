@@ -5,6 +5,7 @@ import { Link, useLocation, useRoute } from "wouter";
 import { Input } from "../Input";
 import { CommentCard } from "../CommentCard/CommentCard";
 import { useAuth } from "../../context/AuthUserContext";
+import { usePost } from "../../context/PostsContext";
 import {
   addPostLike,
   deletePostLike,
@@ -17,6 +18,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 export const PostInfoContainer = () => {
   const [post, setPost] = useState({});
   const { user } = useAuth();
+  const { postList, setPostList } = usePost();
   const [comments, setComments] = useState([]);
   const [isPostLiked, setIsPostLiked] = useState(false);
   const [newComment, setNewComment] = useState("");
@@ -56,14 +58,22 @@ export const PostInfoContainer = () => {
   const togglePostLike = async () => {
     if (isPostLiked) {
       await deletePostLike(id, user.id);
-      notify("Ya no te gusta la publicacion", "success");
       setIsPostLiked(false);
+      const newArray = [...postList];
+      const index = newArray.findIndex((p) => p.id === post.id);
+      newArray[index] = { ...post, cant_likes: post.cant_likes - 1 };
+      setPostList(newArray);
       setPost({ ...post, cant_likes: post.cant_likes - 1 });
+      notify("Ya no te gusta la publicacion", "success");
     } else {
       await addPostLike(id, user.id);
-      notify("Te gusta la publicacion", "success");
       setIsPostLiked(true);
+      const newArray = [...postList];
+      const index = newArray.findIndex((p) => p.id === post.id);
+      newArray[index] = { ...post, cant_likes: post.cant_likes + 1 };
+      setPostList(newArray);
       setPost({ ...post, cant_likes: post.cant_likes + 1 });
+      notify("Te gusta la publicacion", "success");
     }
   };
 
@@ -91,7 +101,7 @@ export const PostInfoContainer = () => {
         />
         <div className="flex flex-col">
           <Link
-            to={`/profile/${post.user_id}`}
+            to={`/user/${post.username}`}
             className="text-base sm:text-lg font-semibold text-gray-800 hover:text-blue-600 transition"
           >
             {full_name}

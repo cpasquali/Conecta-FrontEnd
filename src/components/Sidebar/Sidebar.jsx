@@ -49,17 +49,17 @@ export const Sidebar = ({ position }) => {
           <li
             className={`flex items-center gap-3 text-lg font-medium px-3 py-2 cursor-pointer transition 
           ${
-            location === "/home"
+            location === "/"
               ? "bg-blue-100 text-blue-700 font-semibold"
               : "text-gray-700 hover:bg-blue-50 hover:text-blue-600"
           }`}
           >
             <ion-icon
-              name={location === "/home" ? "home" : "home-outline"}
+              name={location === "/" ? "home" : "home-outline"}
               className="text-xl"
             ></ion-icon>
             <Link
-              to="/home"
+              to="/"
               className="w-full"
               onClick={() => setCurrentSelectedDetail("")}
             >
@@ -71,7 +71,7 @@ export const Sidebar = ({ position }) => {
             <li
               className={`flex relative items-center gap-3 text-lg font-medium px-3 py-2 cursor-pointer transition 
           ${
-            location === `/profile/${user.id}`
+            location === `/user/${user.username}`
               ? "bg-blue-100 text-blue-700 font-semibold"
               : "text-gray-700 hover:bg-blue-50 hover:text-blue-600"
           }`}
@@ -80,7 +80,7 @@ export const Sidebar = ({ position }) => {
                 <div className="absolute top-5">
                   <ion-icon
                     name={
-                      location === `/profile/${user.id}`
+                      location === `/user/${user.username}`
                         ? "person"
                         : "person-outline"
                     }
@@ -114,7 +114,7 @@ export const Sidebar = ({ position }) => {
                       }`}
                     >
                       <Link
-                        to={`/profile/${user.id}`}
+                        to={`/user/${user.username}`}
                         onClick={() => setCurrentSelectedDetail("account")}
                         className="block rounded-lg px-4 py-2 text-sm font-medium hover:text-black"
                       >

@@ -11,50 +11,58 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { notify } from "../../utils/notify";
 import { UpdatePostModal } from "../Modals/UpdatePostModal";
+import { usePost } from "../../context/PostsContext";
 
 export const PostCard = ({ post, widthPostCard = "w-full" }) => {
-  const [currentPost, setCurrentPost] = useState(post);
   const [comments, setComments] = useState([]);
   const [isOpenUpdatePostModal, setIsOpenUpdatePostModal] = useState(false);
   const [isPostLiked, setIsPostLiked] = useState(false);
   const [_, setLocation] = useLocation();
   const { user } = useAuth();
+  const { postList, setPostList } = usePost();
+
   dayjs.extend(relativeTime);
   dayjs.locale("es");
-  const date = dayjs(currentPost.created_at);
+  const date = dayjs(post.created_at);
   const formatted_date =
     dayjs().diff(date, "month") >= 1
       ? date.format("D [de] MMMM [de] YYYY")
       : date.fromNow();
 
-  const fullName = currentPost.first_name + " " + currentPost.last_name;
+  const fullName = post.first_name + " " + post.last_name;
 
   const fetchComments = async () => {
-    const response = await getPostComment(currentPost.id);
+    const response = await getPostComment(post.id);
     setComments(response);
   };
 
   const fetchUserPostLike = async () => {
-    const response = await getUserPostLike(currentPost.id, user.id);
+    const response = await getUserPostLike(post.id, user.id);
     setIsPostLiked(response.liked);
   };
 
   const toggleLike = async () => {
     if (isPostLiked) {
-      await deletePostLike(currentPost.id, user.id);
+      await deletePostLike(post.id, user.id);
       setIsPostLiked(false);
-      setCurrentPost({
-        ...currentPost,
-        cant_likes: currentPost.cant_likes - 1,
-      });
+      const newArray = [...postList];
+      const index = newArray.findIndex((p) => p.id === post.id);
+      newArray[index] = {
+        ...post,
+        cant_likes: post.cant_likes - 1,
+      };
+      setPostList(newArray);
       notify("Ya no te gusta la publicacion", "success");
     } else {
-      await addPostLike(currentPost.id, user.id);
+      await addPostLike(post.id, user.id);
       setIsPostLiked(true);
-      setCurrentPost({
-        ...currentPost,
-        cant_likes: currentPost.cant_likes + 1,
-      });
+      const newArray = [...postList];
+      const index = newArray.findIndex((p) => p.id === post.id);
+      newArray[index] = {
+        ...post,
+        cant_likes: post.cant_likes + 1,
+      };
+      setPostList(newArray);
       notify("Te gusta la publicacion", "success");
     }
   };
@@ -77,13 +85,13 @@ export const PostCard = ({ post, widthPostCard = "w-full" }) => {
           />
           <div>
             <Link
-              to={`/profile/${currentPost.user_id}`}
+              to={`/user/${post.username}`}
               className="text-xs sm:text-base font-semibold text-gray-800 hover:text-blue-600 transition"
             >
               {fullName}
             </Link>
             <p className="text-xs sm:text-base text-gray-400">
-              @{currentPost.username}
+              @{post.username}
             </p>
           </div>
         </div>
@@ -91,7 +99,7 @@ export const PostCard = ({ post, widthPostCard = "w-full" }) => {
           <p className="text-xs sm:text-base mt-[6px] text-gray-400">
             {formatted_date}
           </p>
-          {currentPost.user_id === user.id && (
+          {post.user_id === user.id && (
             <p
               onClick={() => setIsOpenUpdatePostModal(!isOpenUpdatePostModal)}
               className="mt-[6px]"
@@ -104,13 +112,13 @@ export const PostCard = ({ post, widthPostCard = "w-full" }) => {
 
       <div
         className="flex flex-col gap-4"
-        onClick={() => setLocation(`/post/${currentPost.id}`)}
+        onClick={() => setLocation(`/post/${post.id}`)}
       >
         <h2 className="text-xl sm:text-2xl font-bold text-gray-900 whitespace-normal break-words">
-          {currentPost.title}
+          {post.title}
         </h2>
         <p className="text-base sm:text-lg text-gray-700 whitespace-normal break-words">
-          {currentPost.description}
+          {post.description}
         </p>
       </div>
 
@@ -128,7 +136,7 @@ export const PostCard = ({ post, widthPostCard = "w-full" }) => {
             )}
           </button>
           <span className="sm:text-lg font-medium text-gray-700">
-            {currentPost.cant_likes}
+            {post.cant_likes}
           </span>
         </div>
         <div className="flex items-center gap-1">

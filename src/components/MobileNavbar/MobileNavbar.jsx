@@ -13,13 +13,13 @@ export const MobileNavbar = () => {
         <div className="flex items-center justify-evenly h-full">
           <Link
             data-tooltip-target="tooltip-home"
-            to="/home"
+            to="/"
             className={`inline-flex flex-col items-center justify-center px-5 rounded-s-full hover:bg-gray-50 dark:hover:bg-gray-800 group text-2xl ${
-              location === "/home" ? "text-blue-600" : "text-gray-600 "
+              location === "/" ? "text-blue-600" : "text-gray-600 "
             }`}
           >
             <ion-icon
-              name={location === "/home" ? "home" : "home-outline"}
+              name={location === "/" ? "home" : "home-outline"}
             ></ion-icon>
           </Link>
 

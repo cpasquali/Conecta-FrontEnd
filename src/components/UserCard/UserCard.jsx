@@ -54,7 +54,7 @@ export const UserCard = ({ u }) => {
           />
           <div className="flex flex-col">
             <Link
-              to={`/profile/${u.id}`}
+              to={`/user/${u.username}`}
               className="text-xs sm:text-base font-semibold text-gray-800 hover:text-blue-600 transition"
             >
               {fullName}

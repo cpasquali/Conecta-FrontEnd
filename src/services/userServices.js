@@ -65,9 +65,9 @@ export const getAllUsers = async (id, username) => {
   }
 };
 
-export const getUserById = async (id) => {
+export const getUserByUsername = async (username) => {
   try {
-    const response = await fetch(`http://localhost:3000/users/${id}`);
+    const response = await fetch(`http://localhost:3000/users/${username}`);
     const data = await response.json();
     return data.users[0];
   } catch {

@@ -6,7 +6,7 @@ import { useRoute } from "wouter";
 import {
   removeFollower,
   addFollower,
-  getUserById,
+  getUserByUsername,
   getUserFollowing,
 } from "../../services/userServices";
 import { notify } from "../../utils/notify";
@@ -17,44 +17,33 @@ export const ProfileContainer = () => {
   const [postList, setPostList] = useState([]);
   const { user } = useAuth();
   const [profile, setProfile] = useState({});
-  const [match, params] = useRoute("/profile/:id");
-  const id = match ? Number(params.id) : user.id;
   const [isModalActive, setIsModalActive] = useState(false);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [userFollowing, setUserFollowing] = useState([]);
-
-  const isLoggedUserProfile = id == user.id ? true : false;
+  const [match, params] = useRoute("/user/:username");
+  const username = match && params.username;
   const fullName = profile.first_name + " " + profile.last_name;
 
-  const fetchPosts = async () => {
-    const response = await getAllPostByUserId(id);
-    setPostList(response);
-  };
-
   const fetchProfile = async () => {
-    if (isLoggedUserProfile) {
-      setProfile(user);
-    } else {
-      const response = await getUserById(id);
-      setProfile(response);
+    const response = await getUserByUsername(username);
+    setProfile(response);
+
+    if (response?.id) {
+      const posts = await getAllPostByUserId(response.id);
+      setPostList(posts);
     }
   };
 
-  const fetchGetUserFollowing = async () => {
-    const response = await getUserFollowing(user.id);
-    setUserFollowing(response);
-  };
-
   const toggleFollowUser = async () => {
-    if (userFollowing.some((f) => f.id_user_following === Number(id))) {
-      const response = await removeFollower(Number(id), user.id);
+    if (userFollowing.some((f) => f.id_user_following === profile.id)) {
+      const response = await removeFollower(profile.id, user.id);
       notify(response.message, "success");
       setProfile({ ...profile, cant_followers: profile.cant_followers - 1 });
       setUserFollowing((prevFollowingList) =>
         prevFollowingList.filter((f) => f.id_user_following !== profile.id)
       );
     } else {
-      const response = await addFollower(Number(id), user.id);
+      const response = await addFollower(profile.id, user.id);
       notify(response.message, "success");
       setProfile({ ...profile, cant_followers: profile.cant_followers + 1 });
       setUserFollowing((prevFollowingList) => [
@@ -68,11 +57,15 @@ export const ProfileContainer = () => {
     }
   };
 
+  const fetchUserFollowing = async () => {
+    const following = await getUserFollowing(user.id);
+    setUserFollowing(following);
+  };
+
   useEffect(() => {
-    fetchPosts();
     fetchProfile();
-    fetchGetUserFollowing();
-  }, [id]);
+    fetchUserFollowing();
+  }, [username]);
 
   return (
     <section className="mt-6 flex flex-col items-center justify-center gap-4 px-4">
@@ -105,10 +98,10 @@ export const ProfileContainer = () => {
         <button
           onClick={toggleFollowUser}
           className={`${
-            id === user.id ? "hidden" : ""
+            username === user.username ? "hidden" : ""
           } cursor-pointer w-36 px-4 py-1.5 text-xs sm:text-base font-medium bg-blue-600 text-white hover:bg-blue-700 transition mt-2 mb-2`}
         >
-          {userFollowing?.some((u) => u.id_user_following === Number(id))
+          {userFollowing?.some((u) => u.id_user_following === profile.id)
             ? "Siguiendo"
             : "Seguir"}
         </button>
@@ -116,7 +109,7 @@ export const ProfileContainer = () => {
         <button
           onClick={() => setIsModalActive(!isModalActive)}
           className={`${
-            id !== user.id ? "hidden" : ""
+            username !== user.username ? "hidden" : ""
           } cursor-pointer w-36 px-4 py-1.5 text-xs sm:text-base font-medium bg-gray-400 text-white hover:bg-gray-600 transition mt-2 mb-2`}
         >
           Editar perfil
@@ -143,7 +136,7 @@ export const ProfileContainer = () => {
         {postList && postList.length > 0 ? (
           postList?.map((p) => (
             <PostCard
-              key={p.created_at + p.username}
+              key={p?.created_at + p.username}
               post={p}
               widthPostCard="w-full"
             />

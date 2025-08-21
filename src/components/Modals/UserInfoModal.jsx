@@ -3,7 +3,7 @@ import { DeleteUserModal } from "./DeleteUserModal";
 import { useState } from "react";
 
 export const UserInfoModal = ({ profile, isOpenModal, setIsOpenModal }) => {
-  const date = new Date(profile.created_at);
+  const date = new Date(profile?.created_at);
   const formatted_date = date.toLocaleDateString("es-ar", {
     day: "numeric",
     month: "long",
@@ -20,7 +20,7 @@ export const UserInfoModal = ({ profile, isOpenModal, setIsOpenModal }) => {
           src="https://www.researchgate.net/profile/Maria-Monreal/publication/315108532/figure/fig1/AS:472492935520261@1489662502634/Figura-2-Avatar-que-aparece-por-defecto-en-Facebook.png"
           alt="Avatar"
         />
-        <h2>{profile.username}</h2>
+        <h2>{profile?.username}</h2>
         <article className="pl-4 flex items-center gap-4 w-full">
           <p className="text-[36px]  pt-3">
             <ion-icon name="calendar-outline"></ion-icon>

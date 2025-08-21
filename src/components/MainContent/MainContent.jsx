@@ -13,8 +13,8 @@ export const MainContent = () => {
   const { user } = useAuth();
 
   useEffect(() => {
-    user ? setLocation("/home") : setLocation("welcome");
-  }, []);
+    user ? setLocation("/") : setLocation("welcome");
+  }, [user]);
 
   return (
     <>
@@ -23,12 +23,12 @@ export const MainContent = () => {
           <Sidebar />
           <main className="flex-1 sm:pl-[20rem] pb-[4rem] ">
             <Switch>
-              <Route path="/profile/:id" component={ProfileContainer} />
-              <Route path="/home" component={PostList} />
+              <Route path="/" component={PostList} />
               <Route path="/explore" component={ExploreContainter} />
               <Route path="/post/:id" component={PostInfoContainer} />
+              <Route path="/user/:username" component={ProfileContainer} />
             </Switch>
-            {location === "/home" && <Sidebar position="right" />}
+            {location === "/" && <Sidebar position="right" />}
           </main>
         </div>
       ) : (
