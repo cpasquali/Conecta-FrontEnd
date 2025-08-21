@@ -1,0 +1,41 @@
+export const getUserPostLike = async (post_id, user_id) => {
+  try {
+    const response = await fetch(
+      `http://localhost:3000/likes/${post_id}/${user_id}`
+    );
+    const data = await response.json();
+    return data;
+  } catch {
+    console.log("Error en el servidor");
+  }
+};
+
+export const addPostLike = async (post_id, user_id) => {
+  try {
+    const response = await fetch(
+      `http://localhost:3000/likes/${post_id}/${user_id}`,
+      {
+        method: "POST",
+      }
+    );
+    const data = await response.json();
+    return data.message;
+  } catch (e) {
+    console.log(e.message);
+  }
+};
+
+export const deletePostLike = async (post_id, user_id) => {
+  try {
+    const response = await fetch(
+      `http://localhost:3000/likes/${post_id}/${user_id}`,
+      {
+        method: "DELETE",
+      }
+    );
+    const data = await response.json();
+    return data.message;
+  } catch {
+    console.log("Error en el servidor");
+  }
+};
