@@ -49,17 +49,17 @@ export const Sidebar = ({ position }) => {
           <li
             className={`flex items-center gap-3 text-lg font-medium px-3 py-2 cursor-pointer transition 
           ${
-            location === "/"
+            location === "/home"
               ? "bg-blue-100 text-blue-700 font-semibold"
               : "text-gray-700 hover:bg-blue-50 hover:text-blue-600"
           }`}
           >
             <ion-icon
-              name={location === "/" ? "home" : "home-outline"}
+              name={location === "/home" ? "home" : "home-outline"}
               className="text-xl"
             ></ion-icon>
             <Link
-              to="/"
+              to="/home"
               className="w-full"
               onClick={() => setCurrentSelectedDetail("")}
             >
