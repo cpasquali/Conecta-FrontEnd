@@ -1,6 +1,8 @@
+const BASE_URL = import.meta.env.VITE_BACKEND_URL;
+
 export const getAllPosts = async () => {
   try {
-    const response = await fetch("http://localhost:3000/posts");
+    const response = await fetch(`${BASE_URL}/posts`);
     const data = await response.json();
     return data.posts;
   } catch {
@@ -10,7 +12,7 @@ export const getAllPosts = async () => {
 
 export const getAllPostByUserId = async (id) => {
   try {
-    const response = await fetch(`http://localhost:3000/posts/${id}`);
+    const response = await fetch(`${BASE_URL}/posts/${id}`);
     const data = await response.json();
     return data.posts;
   } catch {
@@ -20,7 +22,7 @@ export const getAllPostByUserId = async (id) => {
 
 export const getPostById = async (id) => {
   try {
-    const response = await fetch(`http://localhost:3000/posts/post/${id}`);
+    const response = await fetch(`${BASE_URL}/posts/post/${id}`);
     const data = await response.json();
     return data.post[0];
   } catch {
@@ -30,7 +32,7 @@ export const getPostById = async (id) => {
 
 export const uploadPost = async (id, postData) => {
   try {
-    const response = await fetch(`http://localhost:3000/posts/${id}`, {
+    const response = await fetch(`${BASE_URL}/posts/${id}`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -51,7 +53,7 @@ export const uploadPost = async (id, postData) => {
 
 export const deletePost = async (post_id, id) => {
   try {
-    const data = await fetch(`http://localhost:3000/posts/${id}/${post_id}`, {
+    const data = await fetch(`${BASE_URL}/posts/${id}/${post_id}`, {
       method: "DELETE",
     });
     return data;

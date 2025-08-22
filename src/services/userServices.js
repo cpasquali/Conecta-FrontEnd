@@ -1,7 +1,9 @@
+const BASE_URL = import.meta.env.VITE_BACKEND_URL;
+
 export const login = async (e, userData) => {
   e.preventDefault();
   try {
-    const response = await fetch("http://localhost:3000/users/login", {
+    const response = await fetch(`${BASE_URL}/users/login`, {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({
@@ -24,7 +26,7 @@ export const register = async (e, userData) => {
     if (userData.password !== userData.confirmPassword) {
       return { message: "Las contraseñas deben ser iguales", status: "error" };
     }
-    const response = await fetch("http://localhost:3000/users/register", {
+    const response = await fetch("${BASE_URL}/users/register", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -48,15 +50,13 @@ export const register = async (e, userData) => {
 export const getAllUsers = async (id, username) => {
   try {
     if (username) {
-      const response = await fetch(
-        `http://localhost:3000/users?username=${username}`
-      );
+      const response = await fetch(`${BASE_URL}/users?username=${username}`);
 
       const data = await response.json();
 
       return data;
     }
-    const response = await fetch("http://localhost:3000/users");
+    const response = await fetch(`${BASE_URL}/users`);
     const data = await response.json();
     const users = data.users.filter((u) => u.id !== id);
     return users;
@@ -67,7 +67,7 @@ export const getAllUsers = async (id, username) => {
 
 export const getUserByUsername = async (username) => {
   try {
-    const response = await fetch(`http://localhost:3000/users/${username}`);
+    const response = await fetch(`${BASE_URL}/users/${username}`);
     const data = await response.json();
     return data.users[0];
   } catch {
@@ -78,7 +78,7 @@ export const getUserByUsername = async (username) => {
 export const addFollower = async (id_user_following, id_user_follower) => {
   try {
     const response = await fetch(
-      `http://localhost:3000/userFollowers/${id_user_following}/${id_user_follower}`,
+      `${BASE_URL}/userFollowers/${id_user_following}/${id_user_follower}`,
       {
         method: "POST",
       }
@@ -97,7 +97,7 @@ export const addFollower = async (id_user_following, id_user_follower) => {
 export const removeFollower = async (id_user_following, id_user_follower) => {
   try {
     const response = await fetch(
-      `http://localhost:3000/userFollowers/${id_user_following}/${id_user_follower}`,
+      `${BASE_URL}/userFollowers/${id_user_following}/${id_user_follower}`,
       {
         method: "DELETE",
       }
@@ -115,9 +115,7 @@ export const removeFollower = async (id_user_following, id_user_follower) => {
 
 export const getUserFollowing = async (id) => {
   try {
-    const response = await fetch(
-      `http://localhost:3000/userFollowers/following/${id}`
-    );
+    const response = await fetch(`${BASE_URL}/userFollowers/following/${id}`);
 
     const data = await response.json();
 
@@ -129,7 +127,7 @@ export const getUserFollowing = async (id) => {
 
 export const updateUser = async (id, formData) => {
   try {
-    const response = await fetch(`http://localhost:3000/users/update/${id}`, {
+    const response = await fetch(`${BASE_URL}/users/update/${id}`, {
       method: "POST",
       headers: { "Content-Type": "Application/json" },
       body: JSON.stringify({
@@ -148,7 +146,7 @@ export const updateUser = async (id, formData) => {
 
 export const deleteUser = async (id, password) => {
   try {
-    const response = await fetch(`http://localhost:3000/users/${id}/delete/`, {
+    const response = await fetch(`${BASE_URL}/users/${id}/delete/`, {
       method: "POST",
       headers: { "Content-Type": "Application/json" },
       body: JSON.stringify({ password: password }),
