@@ -26,7 +26,7 @@ export const register = async (e, userData) => {
     if (userData.password !== userData.confirmPassword) {
       return { message: "Las contraseñas deben ser iguales", status: "error" };
     }
-    const response = await fetch("${BASE_URL}/users/register", {
+    const response = await fetch(`${BASE_URL}/users/register`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
