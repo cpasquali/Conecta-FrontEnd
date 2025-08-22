@@ -7,6 +7,7 @@ import { PostInfoContainer } from "../PostInfoContainer/PostInfoContainer";
 import { WelcomePage } from "../WelcomePage/WelcomePage";
 import { useAuth } from "../../context/AuthUserContext";
 import { useEffect } from "react";
+import { MobileNavbar } from "../MobileNavbar/MobileNavbar";
 
 export const MainContent = () => {
   const [location, setLocation] = useLocation();
@@ -20,6 +21,7 @@ export const MainContent = () => {
     <>
       {user || location === "/login" || location === "/register" ? (
         <div>
+          <MobileNavbar />
           <Sidebar />
           <main className="flex-1 sm:pl-[20rem] pb-[4rem] ">
             <Switch>

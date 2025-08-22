@@ -12,7 +12,7 @@ export const Sidebar = ({ position }) => {
   const [currentSelectedDetail, setCurrentSelectedDetail] = useState("");
 
   const logOut = () => {
-    setUser("");
+    setUser(null);
     localStorage.removeItem("currentUser");
     setLocation("/welcome");
   };

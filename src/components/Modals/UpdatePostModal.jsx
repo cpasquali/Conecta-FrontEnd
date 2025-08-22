@@ -20,12 +20,20 @@ export const UpdatePostModal = ({
 
   return (
     <BaseModal isOpen={isOpenUpdatePostModal} width={400}>
-      <button
-        onClick={fetchDeletePost}
-        className="flex items-center justify-center w-full gap-2 flex-1 cursor-pointer min-h-14 bg-red-600 hover:bg-red-700 text-white font-semibold transition text-base"
-      >
-        Eliminar posteo <ion-icon name="cloud-upload-outline"></ion-icon>
-      </button>
+      <section className="flex flex-col gap-4 h-30 w-full">
+        <button
+          onClick={fetchDeletePost}
+          className="flex items-center justify-center gap-2 flex-1 cursor-pointer w-full h-10 bg-red-600  hover:bg-red-700 text-white font-semibold transition text-base"
+        >
+          Eliminar posteo <ion-icon name="cloud-upload-outline"></ion-icon>
+        </button>
+        <button
+          onClick={() => setIsOpenUpdatePostModal(!isOpenUpdatePostModal)}
+          className="flex items-center justify-center gap-2 flex-1 cursor-pointer h-10 bg-gray-400  hover:bg-gray-600 text-white font-semibold transition text-base"
+        >
+          Cerrar <ion-icon name="close-outline"></ion-icon>
+        </button>
+      </section>
     </BaseModal>
   );
 };
