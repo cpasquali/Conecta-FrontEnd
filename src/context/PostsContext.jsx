@@ -5,10 +5,15 @@ const PostContext = createContext();
 
 export const PostContextProvider = ({ children }) => {
   const [postList, setPostList] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchPost = async () => {
-    const response = await getAllPosts();
-    setPostList(response);
+    try {
+      const response = await getAllPosts();
+      setPostList(response);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -16,7 +21,7 @@ export const PostContextProvider = ({ children }) => {
   }, []);
 
   return (
-    <PostContext.Provider value={{ postList, setPostList }}>
+    <PostContext.Provider value={{ postList, setPostList, isLoading }}>
       {children}
     </PostContext.Provider>
   );

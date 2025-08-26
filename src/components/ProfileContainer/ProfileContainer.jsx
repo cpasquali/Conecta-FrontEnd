@@ -7,11 +7,11 @@ import {
   removeFollower,
   addFollower,
   getUserByUsername,
-  getUserFollowing,
 } from "../../services/userServices";
 import { notify } from "../../utils/notify";
 import { UpdateUserModal } from "../Modals/UpdateUserModal";
 import { UserInfoModal } from "../Modals/UserInfoModal";
+import { ProfileContainerSkeleton } from "./ProfileContainerSkeleton";
 
 export const ProfileContainer = () => {
   const [postList, setPostList] = useState([]);
@@ -21,16 +21,21 @@ export const ProfileContainer = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [userFollowing, setUserFollowing] = useState([]);
   const [match, params] = useRoute("/user/:username");
+  const [isLoading, setIsLoading] = useState(true);
   const username = match && params.username;
   const fullName = profile.first_name + " " + profile.last_name;
 
   const fetchProfile = async () => {
-    const response = await getUserByUsername(username);
-    setProfile(response);
+    try {
+      const response = await getUserByUsername(username);
+      setProfile(response);
 
-    if (response?.id) {
-      const posts = await getAllPostByUserId(response.id);
-      setPostList(posts);
+      if (response?.id) {
+        const posts = await getAllPostByUserId(response.id);
+        setPostList(posts);
+      }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -57,15 +62,13 @@ export const ProfileContainer = () => {
     }
   };
 
-  const fetchUserFollowing = async () => {
-    const following = await getUserFollowing(user.id);
-    setUserFollowing(following);
-  };
-
   useEffect(() => {
     fetchProfile();
-    fetchUserFollowing();
   }, [username]);
+
+  if (isLoading) {
+    return <ProfileContainerSkeleton />;
+  }
 
   return (
     <section className="mt-6 flex flex-col items-center justify-center gap-4 px-4">

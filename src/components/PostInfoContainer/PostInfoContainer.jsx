@@ -14,6 +14,7 @@ import {
 import { notify } from "../../utils/notify";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import { PostInfoSkeleton } from "./PostInfoSkeleton";
 
 export const PostInfoContainer = () => {
   const [post, setPost] = useState({});
@@ -23,6 +24,7 @@ export const PostInfoContainer = () => {
   const [isPostLiked, setIsPostLiked] = useState(false);
   const [newComment, setNewComment] = useState("");
   const [_, setLocation] = useLocation();
+  const [isLoading, setIsLoading] = useState(true);
   const [match, params] = useRoute("/post/:id");
   const id = match && params.id;
   const full_name = post.first_name + " " + post.last_name;
@@ -34,25 +36,25 @@ export const PostInfoContainer = () => {
       ? date.format("D [de] MMMM [de] YYYY")
       : date.fromNow();
 
-  const fetchPost = async () => {
-    const response = await getPostById(id);
-    setPost(response);
-  };
-
-  const fetchUserPostLike = async () => {
-    const response = await getUserPostLike(id, user.id);
-    setIsPostLiked(response.liked);
-  };
-
-  const fetchComments = async () => {
-    const response = await getPostComment(id);
-    setComments(response);
+  const fetchPostInfo = async () => {
+    try {
+      const [post, isPostLiked, comments] = await Promise.all([
+        getPostById(id),
+        getUserPostLike(id, user.id),
+        getPostComment(id),
+      ]);
+      setPost(post);
+      setIsPostLiked(isPostLiked.liked);
+      setComments(comments);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const createNewComment = async () => {
     const response = await createComment(post.id, user.id, newComment);
     notify(response, "success");
-    await fetchComments();
+    await getPostComment(id);
   };
 
   const togglePostLike = async () => {
@@ -78,10 +80,12 @@ export const PostInfoContainer = () => {
   };
 
   useEffect(() => {
-    fetchPost();
-    fetchComments();
-    fetchUserPostLike();
+    fetchPostInfo();
   }, []);
+
+  if (isLoading) {
+    return <PostInfoSkeleton />;
+  }
 
   return (
     <section className="flex flex-col gap-8 px-6 sm:px-20 py-10 w-full max-w-5xl mx-auto">

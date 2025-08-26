@@ -4,12 +4,13 @@ import { useState } from "react";
 import { CreatePostModal } from "../Modals/CreatePostModal";
 import { useLocation } from "wouter";
 import { usePost } from "../../context/PostsContext";
+import { PostCardSkeleton } from "../PostCard/PostCardSkeleton";
 
 export const PostList = () => {
   const { user } = useAuth();
   const [isModalActive, setIsModalActive] = useState(false);
   const [_, setLocation] = useLocation();
-  const { postList } = usePost();
+  const { postList, isLoading } = usePost();
 
   const handleOpenModal = () => {
     if (user) {
@@ -18,6 +19,20 @@ export const PostList = () => {
       setLocation("/login");
     }
   };
+
+  if (isLoading) {
+    return (
+      <section className="mt-[-36px] sm:ml-[-160px] sm:mt-10 w-full flex flex-col items-center justify-center">
+        <section className="mt-10 w-full flex flex-col items-center justify-center sm:w-[45%] gap-4 pt-2">
+          {Array(9)
+            .fill(null)
+            .map((e, index) => (
+              <PostCardSkeleton key={index} />
+            ))}
+        </section>
+      </section>
+    );
+  }
 
   return (
     <section className="mt-[-36px] sm:ml-[-160px] sm:mt-10 w-full flex flex-col items-center justify-center">
