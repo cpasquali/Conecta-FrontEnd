@@ -54,7 +54,7 @@ export const PostInfoContainer = () => {
   const createNewComment = async () => {
     const response = await createComment(post.id, user.id, newComment);
     notify(response.message, "success");
-    setComments([...comments, response.newComment]);
+    setComments([response.newComment, ...comments]);
   };
 
   const togglePostLike = async () => {

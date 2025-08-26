@@ -1,12 +1,16 @@
 import { Link } from "wouter";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 
 export const CommentCard = ({ comment }) => {
   const fullName = comment.first_name + " " + comment.last_name;
-  const fecha = new Date(comment.created_at);
-  const fecha_formateada = fecha.toLocaleDateString("es-AR", {
-    day: "numeric",
-    month: "long",
-  });
+  dayjs.extend(relativeTime);
+  dayjs.locale("es");
+  const date = dayjs(comment.created_at);
+  const formatted_date =
+    dayjs().diff(date, "month") >= 1
+      ? date.format("D [de] MMMM [de] YYYY")
+      : date.fromNow();
 
   return (
     <article className="bg-gray-50  justify-self-center sm:w-full p-4 border mt-2">
@@ -32,7 +36,7 @@ export const CommentCard = ({ comment }) => {
             {comment.description}
           </p>
         </div>
-        <p className="text-xs sm:text-base text-gray-400">{fecha_formateada}</p>
+        <p className="text-xs sm:text-base text-gray-400">{formatted_date}</p>
       </div>
     </article>
   );
