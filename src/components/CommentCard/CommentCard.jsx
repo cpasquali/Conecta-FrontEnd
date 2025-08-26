@@ -19,7 +19,7 @@ export const CommentCard = ({ comment }) => {
         <div className="flex-1 space-y-1">
           <div className="flex items-center gap-2 text-sm">
             <Link
-              to={`/profile/${comment.user_id}`}
+              to={`/user/${comment.username}`}
               className="text-xs sm:text-base font-semibold text-gray-800 hover:text-red-600 transition"
             >
               {fullName}

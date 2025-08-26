@@ -22,7 +22,7 @@ export const createComment = async (id, userId, description) => {
       }),
     });
     const data = await response.json();
-    return data.message;
+    return data;
   } catch {
     console.log("Error en el servidor");
   }
