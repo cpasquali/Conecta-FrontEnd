@@ -55,6 +55,7 @@ export const PostInfoContainer = () => {
     const response = await createComment(post.id, user.id, newComment);
     notify(response, "success");
     setComments([...comments, response.newComment]);
+    console.log(response);
   };
 
   const togglePostLike = async () => {
@@ -180,7 +181,7 @@ export const PostInfoContainer = () => {
         {comments && comments.length > 0 && (
           <div className="flex flex-col gap-4 mt-6">
             {comments.map((c) => (
-              <CommentCard key={c.id} comment={c} />
+              <CommentCard key={c?.id} comment={c} />
             ))}
           </div>
         )}
