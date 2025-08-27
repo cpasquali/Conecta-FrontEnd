@@ -13,7 +13,7 @@ export const CommentCard = ({ comment }) => {
       : date.fromNow();
 
   return (
-    <article className="bg-gray-50  justify-self-center sm:w-full p-4 border mt-2">
+    <article className="rounded-sm bg-gray-50  justify-self-center sm:w-full p-4 border mt-2">
       <div className="flex gap-3 items-start">
         <img
           className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border object-cover"

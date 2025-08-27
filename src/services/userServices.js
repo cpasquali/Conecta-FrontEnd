@@ -41,7 +41,9 @@ export const register = async (e, userData) => {
     });
     const data = await response.json();
     const status = response.ok ? "success" : "error";
-    return { message: data.message, status: status };
+    const newUser = data.newUser;
+
+    return { message: data.message, status: status, newUser };
   } catch (e) {
     return e.message;
   }

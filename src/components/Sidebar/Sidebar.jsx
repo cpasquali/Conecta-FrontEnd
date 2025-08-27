@@ -2,12 +2,15 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthUserContext";
 import { Link, useLocation } from "wouter";
 import { getAllUsers } from "../../services/userServices";
+import { getAllCommunities } from "../../services/communitiesService";
 import { UserCard } from "../UserCard/UserCard";
+import { CommunityCard } from "../CommunityCard/CommunityCard";
 
 export const Sidebar = ({ position }) => {
   const { user, setUser } = useAuth();
   const [location, setLocation] = useLocation();
   const [userList, setUserList] = useState([]);
+  const [communities, setCommunities] = useState([]);
   const full_name = user.first_name + " " + user.last_name;
   const [currentSelectedDetail, setCurrentSelectedDetail] = useState("");
 
@@ -18,8 +21,13 @@ export const Sidebar = ({ position }) => {
   };
 
   const fetchApi = async () => {
-    const response = await getAllUsers(user.id);
-    setUserList(response);
+    const [users, communities] = await Promise.all([
+      getAllUsers(user.id),
+      getAllCommunities(),
+    ]);
+
+    setUserList(users);
+    setCommunities(communities);
   };
 
   useEffect(() => {
@@ -28,13 +36,21 @@ export const Sidebar = ({ position }) => {
 
   if (position === "right") {
     return (
-      <section className="hidden sm:flex flex-col fixed top-32 right-20 gap-2 bg-white border border-gray-200 p-4">
-        <p className="text-gray-500">
-          ¡Seguí a otros usuarios para ver más contenido!
-        </p>
-        {userList.slice(0, 3).map((u) => (
-          <UserCard key={u.id} u={u} />
-        ))}
+      <section className="hidden sm:flex flex-col fixed top-0 right-10 gap-10 border-l border-gray-200 h-full pl-8 pt-10 w-[26rem]">
+        <section className="flex flex-col gap-2 bg-white border border-gray-200 p-4 rounded-sm">
+          <p className="text-gray-500">
+            ¡Seguí a otros usuarios para ver más contenido!
+          </p>
+          {userList.slice(0, 3).map((u) => (
+            <UserCard key={u.id} u={u} />
+          ))}
+        </section>
+        <section className="flex flex-col gap-2 bg-white border border-gray-200 p-4 rounded-sm">
+          <p className="text-gray-500">¡Ingresa a una comunidad!</p>
+          {communities.slice(0, 3).map((c) => (
+            <CommunityCard key={c.id} community={c} />
+          ))}
+        </section>
       </section>
     );
   }

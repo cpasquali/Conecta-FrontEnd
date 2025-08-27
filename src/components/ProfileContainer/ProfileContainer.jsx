@@ -102,7 +102,7 @@ export const ProfileContainer = () => {
           onClick={toggleFollowUser}
           className={`${
             username === user.username ? "hidden" : ""
-          } cursor-pointer w-36 px-4 py-1.5 text-xs sm:text-base font-medium bg-blue-600 text-white hover:bg-blue-700 transition mt-2 mb-2`}
+          } cursor-pointer w-36 px-4 py-1.5 text-xs sm:text-base font-medium bg-blue-600 text-white hover:bg-blue-700 transition mt-2 mb-2 rounded-sm`}
         >
           {userFollowing?.some((u) => u.id_user_following === profile.id)
             ? "Siguiendo"
@@ -113,13 +113,13 @@ export const ProfileContainer = () => {
           onClick={() => setIsModalActive(!isModalActive)}
           className={`${
             username !== user.username ? "hidden" : ""
-          } cursor-pointer w-36 px-4 py-1.5 text-xs sm:text-base font-medium bg-gray-400 text-white hover:bg-gray-600 transition mt-2 mb-2`}
+          } cursor-pointer w-36 px-4 py-1.5 text-xs sm:text-base font-medium bg-gray-400 text-white hover:bg-gray-600 transition mt-2 mb-2 rounded-sm`}
         >
           Editar perfil
         </button>
 
         <button
-          className="cursor-pointer w-36 px-4 py-1.5 text-xs sm:text-base font-medium bg-gray-700 text-white hover:bg-gray-800 transition mt-2 mb-2"
+          className="cursor-pointer w-36 px-4 py-1.5 text-xs sm:text-base font-medium bg-gray-700 text-white hover:bg-gray-800 transition mt-2 mb-2 rounded-sm"
           onClick={() => setIsOpenModal(!isOpenModal)}
         >
           Ver info

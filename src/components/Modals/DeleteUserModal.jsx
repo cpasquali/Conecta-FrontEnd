@@ -37,12 +37,12 @@ export const DeleteUserModal = ({
         />
         <button
           onClick={fetchDeleteUser}
-          className="flex items-center justify-center w-full gap-2 flex-1 cursor-pointer min-h-12 bg-red-600 hover:bg-red-700 text-white font-semibold transition text-base"
+          className="rounded-sm flex items-center justify-center w-full gap-2 flex-1 cursor-pointer min-h-12 bg-red-600 hover:bg-red-700 text-white font-semibold transition text-base"
         >
           Eliminar
         </button>
         <button
-          className="w-[75%] h-10 bg-gray-400  hover:bg-gray-600 text-white font-semibold transition text-base cursor-pointer"
+          className="rounded-sm w-[75%] h-10 bg-gray-400  hover:bg-gray-600 text-white font-semibold transition text-base cursor-pointer"
           onClick={() => setIsModalDeleteActive(!isDeleteModalActive)}
         >
           Cerrar

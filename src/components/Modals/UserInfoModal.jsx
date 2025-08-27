@@ -1,3 +1,4 @@
+import { useAuth } from "../../context/AuthUserContext";
 import { BaseModal } from "./BaseModal";
 import { DeleteUserModal } from "./DeleteUserModal";
 import { useState } from "react";
@@ -9,6 +10,7 @@ export const UserInfoModal = ({ profile, isOpenModal, setIsOpenModal }) => {
     month: "long",
     year: "numeric",
   });
+  const { user } = useAuth();
 
   const [isDeleteModalActive, setIsModalDeleteActive] = useState(false);
 
@@ -32,23 +34,25 @@ export const UserInfoModal = ({ profile, isOpenModal, setIsOpenModal }) => {
             </p>
           </div>
         </article>
-        <article
-          onClick={() => setIsModalDeleteActive(!isDeleteModalActive)}
-          className="bg-red-200 border border-red-600 pl-4 w-full flex items-center gap-4 cursor-pointer"
-        >
-          <p className="text-[36px] pt-3">
-            <ion-icon name="trash-outline"></ion-icon>
-          </p>
-          <div>
-            <p className="text-xs sm:text-base">Eliminar cuenta</p>
-            <p className="text-xs sm:text-base text-gray-500">
-              La cuenta se eliminara de forma permanente
+        {profile.id === user.id && (
+          <article
+            onClick={() => setIsModalDeleteActive(!isDeleteModalActive)}
+            className="rounded-sm bg-red-200 border border-red-600 pl-4 w-full flex items-center gap-4 cursor-pointer"
+          >
+            <p className="text-[36px] pt-3">
+              <ion-icon name="trash-outline"></ion-icon>
             </p>
-          </div>
-        </article>
+            <div>
+              <p className="text-xs sm:text-base">Eliminar cuenta</p>
+              <p className="text-xs sm:text-base text-gray-500">
+                La cuenta se eliminara de forma permanente
+              </p>
+            </div>
+          </article>
+        )}
       </section>
       <button
-        className="w-[75%] h-10 bg-gray-400  hover:bg-gray-600 text-white font-semibold transition text-base cursor-pointer"
+        className="rounded-sm w-[75%] h-10 bg-gray-400  hover:bg-gray-600 text-white font-semibold transition text-base cursor-pointer"
         onClick={() => setIsOpenModal(!isOpenModal)}
       >
         Cerrar

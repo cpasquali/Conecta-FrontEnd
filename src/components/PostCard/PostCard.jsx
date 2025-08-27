@@ -74,7 +74,7 @@ export const PostCard = ({ post, widthPostCard = "w-full" }) => {
 
   return (
     <article
-      className={`${widthPostCard} sm:w-full bg-white sm:rounded-md p-6 hover:bg-gray-100 cursor-pointer`}
+      className={`${widthPostCard} sm:w-full bg-white sm:rounded-sm p-6 hover:bg-gray-100 cursor-pointer`}
     >
       <div className="flex sm:items-start justify-between mb-5 border-b border-gray-100 pb-4">
         <div className="flex gap-4">

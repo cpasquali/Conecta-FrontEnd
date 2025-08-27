@@ -23,7 +23,7 @@ export const MainContent = () => {
         <div>
           <MobileNavbar />
           <Sidebar />
-          <main className="flex-1 sm:pl-[20rem] pb-[4rem] ">
+          <main className="flex-1 sm:pl-[18rem] pb-[4rem]">
             <Switch>
               <Route path="/" component={PostList} />
               <Route path="/explore" component={ExploreContainter} />

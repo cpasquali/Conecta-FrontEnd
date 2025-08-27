@@ -19,7 +19,7 @@ export const Input = ({
     return (
       <input
         disabled={disabled}
-        className={`${className} h-12 pl-4 pr-4 border border-gray-300 bg-white shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none transition duration-200`}
+        className={`${className} rounded-sm h-12 pl-4 pr-4 border border-gray-300 bg-white shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none transition duration-200`}
         type="text"
         placeholder={placeholder}
         onChange={onInputChange}
@@ -34,7 +34,7 @@ export const Input = ({
     return (
       <div className="w-full relative">
         <input
-          className={`${className} w-full h-12 pl-4 pr-4 border border-gray-300 bg-white shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none transition duration-200`}
+          className={`${className} rounded-sm w-full h-12 pl-4 pr-4 border border-gray-300 bg-white shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none transition duration-200`}
           type={isShowPassword ? "text" : "password"}
           placeholder={placeholder}
           onChange={onInputChange}
@@ -63,7 +63,7 @@ export const Input = ({
           onChange={onInputChange}
           ref={ref}
           name={name}
-          className="w-full h-12 pl-10 pr-4 border border-gray-300 bg-white shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none transition duration-200"
+          className="w-full rounded-sm h-12 pl-10 pr-4 border border-gray-300 bg-white shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none transition duration-200"
         />
         <span className="absolute left-4 top-2 text-blue-500 text-lg transition-all duration-300 peer-focus:scale-110">
           @

@@ -91,7 +91,7 @@ export const PostInfoContainer = () => {
     <section className="flex flex-col gap-8 px-6 sm:px-20 py-10 w-full max-w-5xl mx-auto">
       <button
         onClick={() => setLocation("/")}
-        className="flex items-center gap-2 cursor-pointer w-fit bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 shadow transition text-sm sm:text-base"
+        className="rounded-sm flex items-center gap-2 cursor-pointer w-fit bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 shadow transition text-sm sm:text-base"
       >
         <ion-icon name="arrow-back-outline"></ion-icon>
         Volver a Posts
@@ -171,7 +171,7 @@ export const PostInfoContainer = () => {
           />
           <button
             type="submit"
-            className="flex items-center gap-2 cursor-pointer w-fit bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 shadow transition text-sm sm:text-base"
+            className="rounded-sm flex items-center gap-2 cursor-pointer w-fit bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 shadow transition text-sm sm:text-base"
           >
             Postear
           </button>

@@ -29,14 +29,14 @@ export const WelcomePage = () => {
             <button
               onClick={() => setIsModalLoginActive(!isModalLoginActive)}
               href="/login"
-              className="flex items-center text-white justify-center w-32 h-10 bg-blue-500 hover:bg-blue-600 font-semibold transition cursor-pointer"
+              className="rounded-sm flex items-center text-white justify-center w-32 h-10 bg-blue-500 hover:bg-blue-600 font-semibold transition cursor-pointer"
             >
               Iniciar sesion
             </button>
             <button
               onClick={() => setIsModalRegisterActive(!isModalRegisterActive)}
               href="/register"
-              className="flex items-center justify-center w-32 h-10 border-2 border-blue-500 text-black hover:bg-blue-500 hover:text-white font-semibold transition cursor-pointer"
+              className="rounded-sm flex items-center justify-center w-32 h-10 border-2 border-blue-500 text-black hover:bg-blue-500 hover:text-white font-semibold transition cursor-pointer"
             >
               Crear cuenta
             </button>

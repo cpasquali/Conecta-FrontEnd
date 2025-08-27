@@ -1,8 +1,8 @@
-import { ToastContainer } from "react-toastify";
 import "./App.css";
 import { MainContent } from "./components/MainContent/MainContent";
 import { AuthUserProvider } from "./context/AuthUserContext";
 import { PostContextProvider } from "./context/PostsContext";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
@@ -12,7 +12,7 @@ function App() {
           <MainContent />
         </PostContextProvider>
       </AuthUserProvider>
-      <ToastContainer />
+      <Toaster position="top-right" reverseOrder={false} />
     </div>
   );
 }

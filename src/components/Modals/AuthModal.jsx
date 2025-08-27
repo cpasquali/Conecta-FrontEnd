@@ -96,8 +96,11 @@ export const AuthModal = ({
       notify(response.message, response.status);
       return;
     }
+    console.log(response);
+
     notify(response.message, response.status);
     setIsModalRegisterActive(!isModalRegisterActive);
+    setUser(response.newUser);
   };
 
   if (authType === "register") {
@@ -167,13 +170,13 @@ export const AuthModal = ({
           />
           <button
             type="submit"
-            className="flex items-center justify-center gap-2 flex-1 cursor-pointer h-20 bg-blue-600 hover:bg-blue-700 text-white font-semibold transition text-base"
+            className="rounded-sm flex items-center justify-center gap-2 flex-1 cursor-pointer h-20 bg-blue-600 hover:bg-blue-700 text-white font-semibold transition text-base"
           >
-            Iniciar sesion
+            Registrarse
           </button>
           <button
             onClick={() => setIsModalRegisterActive(!isModalRegisterActive)}
-            className="flex items-center justify-center gap-2 flex-1 cursor-pointer h-10 bg-gray-400  hover:bg-gray-600 text-white font-semibold transition text-base"
+            className="rounded-sm flex items-center justify-center gap-2 flex-1 cursor-pointer h-10 bg-gray-400  hover:bg-gray-600 text-white font-semibold transition text-base"
             type="button"
           >
             Cerrar <ion-icon name="close-outline"></ion-icon>

@@ -31,7 +31,6 @@ export const ExploreContainter = () => {
 
   useEffect(() => {
     if (!search) return;
-
     fetchUsers(search);
   }, [search]);
 

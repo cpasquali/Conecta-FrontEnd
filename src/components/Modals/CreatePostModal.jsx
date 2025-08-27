@@ -56,20 +56,20 @@ export const CreatePostModal = ({ isModalActive, setIsModalActive }) => {
           placeholder="Escribe una descripción atractiva..."
           value={form.description}
           onChange={(e) => handleInputForm(e, "description")}
-          className="w-full min-h-[120px] border border-gray-300 bg-white shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none transition duration-200 resize-none pt-2 pl-2"
+          className="w-full rounded-sm min-h-[120px] border border-gray-300 bg-white shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none transition duration-200 resize-none pt-2 pl-2"
         />
 
         <div className="flex gap-3 justify-between">
           <button
             onClick={handleSubmit}
-            className="flex items-center justify-center gap-2 flex-1 cursor-pointer h-10 bg-blue-600 hover:bg-blue-700 text-white font-semibold transition text-base"
+            className="rounded-sm flex items-center justify-center gap-2 flex-1 cursor-pointer h-10 bg-blue-600 hover:bg-blue-700 text-white font-semibold transition text-base"
           >
             Postear <ion-icon name="cloud-upload-outline"></ion-icon>
           </button>
 
           <button
             onClick={() => setIsModalActive(!isModalActive)}
-            className="flex items-center justify-center gap-2 flex-1 cursor-pointer h-10 bg-gray-400  hover:bg-gray-600 text-white font-semibold transition text-base"
+            className="rounded-sm flex items-center justify-center gap-2 flex-1 cursor-pointer h-10 bg-gray-400  hover:bg-gray-600 text-white font-semibold transition text-base"
           >
             Cerrar <ion-icon name="close-outline"></ion-icon>
           </button>

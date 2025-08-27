@@ -49,14 +49,14 @@ export const UpdateUserModal = ({ isModalActive, setIsModalActive }) => {
         <div className="flex gap-3 justify-between w-full">
           <button
             type="submit"
-            className="flex items-center justify-center gap-2 flex-1 cursor-pointer h-10 bg-blue-600 hover:bg-blue-700 text-white font-semibold transition text-base"
+            className="rounded-sm flex items-center justify-center gap-2 flex-1 cursor-pointer h-10 bg-blue-600 hover:bg-blue-700 text-white font-semibold transition text-base"
           >
             Postear <ion-icon name="cloud-upload-outline"></ion-icon>
           </button>
 
           <button
             onClick={() => setIsModalActive(!isModalActive)}
-            className="flex items-center justify-center gap-2 flex-1 cursor-pointer h-10 bg-gray-400  hover:bg-gray-600 text-white font-semibold transition text-base"
+            className="rounded-sm flex items-center justify-center gap-2 flex-1 cursor-pointer h-10 bg-gray-400  hover:bg-gray-600 text-white font-semibold transition text-base"
           >
             Cerrar <ion-icon name="close-outline"></ion-icon>
           </button>
