@@ -20,19 +20,19 @@ export const Sidebar = ({ position }) => {
     setLocation("/welcome");
   };
 
-  const fetchApi = async () => {
-    const [users, communities] = await Promise.all([
-      getAllUsers(user.id),
-      getAllCommunities(),
-    ]);
-
-    setUserList(users);
-    setCommunities(communities);
-  };
-
   useEffect(() => {
+    const fetchApi = async () => {
+      const [users, communities] = await Promise.all([
+        getAllUsers(user.id),
+        getAllCommunities(),
+      ]);
+
+      setUserList(users);
+      setCommunities(communities);
+    };
+
     fetchApi();
-  }, []);
+  }, [user.id]);
 
   if (position === "right") {
     return (

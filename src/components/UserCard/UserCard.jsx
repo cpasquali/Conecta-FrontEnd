@@ -34,14 +34,14 @@ export const UserCard = ({ u }) => {
     }
   };
 
-  const fetchGetUserFollowing = async () => {
-    const response = await getUserFollowing(user.id);
-    setUserFollowing(response);
-  };
-
   useEffect(() => {
+    const fetchGetUserFollowing = async () => {
+      const response = await getUserFollowing(user.id);
+      setUserFollowing(response);
+    };
+
     fetchGetUserFollowing();
-  }, []);
+  }, [user.id]);
 
   return (
     <article className="flex items-center justify-between bg-white border border-gray-200 px-4 py-3 rounded-sm">
