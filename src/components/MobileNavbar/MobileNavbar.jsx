@@ -10,17 +10,30 @@ export const MobileNavbar = () => {
   return (
     <>
       <nav className="fixed z-50 w-full h-16 max-w-lg -translate-x-1/2 bg-white border border-gray-200 rounded-full bottom-2 left-1/2 dark:bg-gray-700 dark:border-gray-600 sm:hidden">
-        <ul className="flex items-center justify-evenly h-full list-none">
+        <ul className="flex items-center justify-between h-full w-full pl-8 pr-8">
           <li>
             <Link
               data-tooltip-target="tooltip-home"
               to="/"
-              className={`inline-flex flex-col items-center justify-center px-5 rounded-s-full hover:bg-gray-50 dark:hover:bg-gray-800 group text-2xl ${
+              className={`inline-flex flex-col items-center justify-center rounded-s-full hover:bg-gray-50 dark:hover:bg-gray-800 group text-2xl ${
                 location === "/" ? "text-blue-600" : "text-gray-600 "
               }`}
             >
               <ion-icon
                 name={location === "/" ? "home" : "home-outline"}
+              ></ion-icon>
+            </Link>
+          </li>
+          <li>
+            <Link
+              data-tooltip-target="tooltip-home"
+              to="/explore"
+              className={`inline-flex flex-col items-center justify-center rounded-s-full hover:bg-gray-50 dark:hover:bg-gray-800 group text-2xl ${
+                location === "/explore" ? "text-blue-600" : "text-gray-600 "
+              }`}
+            >
+              <ion-icon
+                name={location === "/explore" ? "search" : "search-outline"}
               ></ion-icon>
             </Link>
           </li>
@@ -54,7 +67,7 @@ export const MobileNavbar = () => {
             <Link
               data-tooltip-target="tooltip-home"
               to={`/user/${user?.username}`}
-              className={`inline-flex flex-col items-center justify-center px-5 rounded-s-full hover:bg-gray-50 dark:hover:bg-gray-800 group text-2xl ${
+              className={`inline-flex flex-col items-center justify-center rounded-s-full hover:bg-gray-50 dark:hover:bg-gray-800 group text-2xl ${
                 location === `/user/${user?.username}`
                   ? "text-blue-600"
                   : "text-gray-600 "

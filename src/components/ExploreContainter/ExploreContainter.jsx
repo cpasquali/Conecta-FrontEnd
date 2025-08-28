@@ -1,13 +1,27 @@
 import { useEffect, useRef, useState } from "react";
-import { Input } from "../Input";
 import { getAllUsers } from "../../services/userServices";
+import { Input } from "../Input";
 import { UserCard } from "../UserCard/UserCard";
 
 export const ExploreContainter = () => {
-  const [search, setSearch] = useState("");
   const [findUsers, setFindUsers] = useState([]);
-  const timeoutRef = useRef(null);
   const [message, setMessage] = useState("");
+  const [search, setSearch] = useState("");
+  const timeoutRef = useRef(null);
+
+  const fetchUsers = async (username) => {
+    const data = await getAllUsers(null, username);
+    if (data.hasOwnProperty("message")) {
+      setMessage(data.message);
+      setFindUsers([]);
+      const timeout = setTimeout(() => {
+        setMessage("");
+        clearTimeout(timeout);
+      }, 1000);
+    } else {
+      setFindUsers(data.users);
+    }
+  };
 
   const debounce = (text) => {
     if (timeoutRef.current) {
@@ -16,44 +30,29 @@ export const ExploreContainter = () => {
 
     timeoutRef.current = setTimeout(() => {
       setSearch(text);
-    }, 500);
-  };
-
-  const fetchUsers = async (username) => {
-    const data = await getAllUsers(null, username);
-    if (data.hasOwnProperty("message")) {
-      setMessage(data.message);
-      setFindUsers([]);
-    } else {
-      setFindUsers(data.users);
-    }
+    }, 200);
   };
 
   useEffect(() => {
-    if (!search) return;
+    if (!search) setFindUsers([]);
     fetchUsers(search);
   }, [search]);
 
   return (
-    <section className="flex flex-col gap-6 items-center justify-center mt-10">
+    <section className="flex flex-col mt-6 items-center justify-center gap-2">
       <Input
         type="text"
+        className="w-[95%]"
         placeholder="Buscar..."
-        className="w-[94%] sm:w-200"
         onInputChange={(e) => debounce(e.target.value)}
       />
-
-      {findUsers && findUsers.length > 0 ? (
-        <ul className="w-[94%] sm:w-200 flex flex-col gap-2">
-          {findUsers.map((u) => (
-            <li key={u.id}>
-              <UserCard u={u} />
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <h2>{message}</h2>
-      )}
+      <section className="flex flex-col gap-1 w-[95%]">
+        {findUsers && findUsers.length > 0 ? (
+          findUsers.map((u) => <UserCard key={u.id} u={u} />)
+        ) : (
+          <p className="mt-4 text-center">{message}</p>
+        )}
+      </section>
     </section>
   );
 };

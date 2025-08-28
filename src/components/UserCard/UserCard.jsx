@@ -54,7 +54,7 @@ export const UserCard = ({ u }) => {
         <div className="flex flex-col">
           <Link
             to={`/user/${u.username}`}
-            className="text-xs sm:text-base font-semibold text-gray-800 hover:text-blue-600 transition"
+            className="text-xs sm:text-base font-semibold text-gray-800 hover:text-blue-600 transition text-ellipsis truncate whitespace-nowrap overflow-hidden w-36 block"
           >
             {fullName}
           </Link>
@@ -80,7 +80,7 @@ export const UserCard = ({ u }) => {
           user.id !== u.id && "hidden"
         }`}
       >
-        Ver Perfil
+        Ver
       </Link>
     </article>
   );

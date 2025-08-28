@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAuth } from "../../context/AuthUserContext";
 import { Link, useLocation } from "wouter";
 import { getAllUsers } from "../../services/userServices";
@@ -9,6 +9,10 @@ import { CommunityCard } from "../CommunityCard/CommunityCard";
 export const Sidebar = ({ position }) => {
   const { user, setUser } = useAuth();
   const [location, setLocation] = useLocation();
+  const [findUsers, setFindUsers] = useState([]);
+  const [message, setMessage] = useState("");
+  const [search, setSearch] = useState("");
+  const timeoutRef = useRef(null);
   const [userList, setUserList] = useState([]);
   const [communities, setCommunities] = useState([]);
   const full_name = user.first_name + " " + user.last_name;
@@ -18,6 +22,30 @@ export const Sidebar = ({ position }) => {
     setUser(null);
     localStorage.removeItem("currentUser");
     setLocation("/welcome");
+  };
+
+  const debounce = (text) => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+
+    timeoutRef.current = setTimeout(() => {
+      setSearch(text);
+    }, 200);
+  };
+
+  const fetchUsers = async (username) => {
+    const data = await getAllUsers(null, username);
+    if (data.hasOwnProperty("message")) {
+      setMessage(data.message);
+      setFindUsers([]);
+      const timeout = setTimeout(() => {
+        setMessage("");
+        clearTimeout(timeout);
+      }, 1000);
+    } else {
+      setFindUsers(data.users);
+    }
   };
 
   useEffect(() => {
@@ -34,9 +62,30 @@ export const Sidebar = ({ position }) => {
     fetchApi();
   }, [user.id]);
 
+  useEffect(() => {
+    if (!search) setFindUsers([]);
+    fetchUsers(search);
+  }, [search]);
+
   if (position === "right") {
     return (
       <section className="hidden sm:flex flex-col fixed top-0 right-10 gap-10 border-l border-gray-200 h-full pl-8 pt-10 w-[26rem]">
+        <section className="flex flex-col gap-2">
+          <input
+            type="search"
+            placeholder="Buscar..."
+            className="bg-white border border-gray-200 p-4 rounded-sm w-full"
+            onChange={(e) => debounce(e.target.value)}
+          />
+          <section className="flex flex-col gap-2">
+            {findUsers && findUsers.length > 0 ? (
+              findUsers.map((u) => <UserCard key={u.id} u={u} />)
+            ) : (
+              <p className="text-center mt-2">{message}</p>
+            )}
+          </section>
+        </section>
+
         <section className="flex flex-col gap-2 bg-white border border-gray-200 p-4 rounded-sm">
           <p className="text-gray-500">
             ¡Seguí a otros usuarios para ver más contenido!
@@ -151,24 +200,6 @@ export const Sidebar = ({ position }) => {
               </section>
             </li>
           )}
-
-          <li
-            className={`flex items-center gap-3 text-lg font-medium px-3 py-2 cursor-pointer transition 
-          ${
-            location === "/explore"
-              ? "bg-blue-100 text-blue-700 font-semibold"
-              : "text-gray-700 hover:bg-blue-50 hover:text-blue-600"
-          }`}
-          >
-            <ion-icon name="search-outline"></ion-icon>
-            <Link
-              to="/explore"
-              className="w-full"
-              onClick={() => setCurrentSelectedDetail("")}
-            >
-              Explorar
-            </Link>
-          </li>
         </ul>
       </section>
 
