@@ -120,6 +120,13 @@ export const PostCard = ({ post, widthPostCard = "w-full" }) => {
         <p className="text-base sm:text-lg text-gray-700 whitespace-normal break-words">
           {post.description}
         </p>
+        {post.image_url && (
+          <img
+            className="object-contain"
+            src={post.image_url}
+            alt="imagen del posteo"
+          />
+        )}
       </div>
 
       <div className="flex items-center gap-4 mt-4 text-gray-600">

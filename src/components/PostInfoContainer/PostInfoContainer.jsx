@@ -151,6 +151,13 @@ export const PostInfoContainer = () => {
         <p className="text-gray-600 text-base whitespace-normal break-words">
           {post.description}
         </p>
+        {post.image_url && (
+          <img
+            className="w-120 h-120 object-contain"
+            src={post.image_url}
+            alt="imagen del posteo"
+          />
+        )}
         <p className="text-gray-600 text-base whitespace-normal break-words mt-4">
           {formatted_date}
         </p>

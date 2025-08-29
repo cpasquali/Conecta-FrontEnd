@@ -32,15 +32,13 @@ export const getPostById = async (id) => {
 
 export const uploadPost = async (id, postData) => {
   try {
+    const formData = new FormData();
+    formData.append("title", postData.title);
+    formData.append("description", postData.description);
+    formData.append("image", postData.image);
     const response = await fetch(`${BASE_URL}/posts/${id}`, {
       method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({
-        title: postData.title,
-        description: postData.description,
-      }),
+      body: formData,
     });
 
     const status = response.ok ? "success" : "error";

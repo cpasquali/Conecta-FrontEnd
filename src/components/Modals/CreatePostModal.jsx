@@ -10,7 +10,10 @@ export const CreatePostModal = ({ isModalActive, setIsModalActive }) => {
   const [form, setForm] = useState({
     title: "",
     description: "",
+    image: null,
   });
+
+  const [imagePreview, setImagePreview] = useState(null);
 
   const { setPostList } = usePost();
   const { user } = useAuth();
@@ -26,7 +29,9 @@ export const CreatePostModal = ({ isModalActive, setIsModalActive }) => {
     setForm({
       title: "",
       description: "",
+      image: null,
     });
+    setImagePreview(null);
     notify(response.message, response.status);
   };
 
@@ -35,6 +40,13 @@ export const CreatePostModal = ({ isModalActive, setIsModalActive }) => {
       ...form,
       [property]: e.target.value,
     });
+  };
+
+  const handleFileForm = (e) => {
+    const image = e.target.files[0];
+    const preview = URL.createObjectURL(image);
+    setImagePreview(preview);
+    setForm({ ...form, image: image });
   };
 
   return (
@@ -58,6 +70,28 @@ export const CreatePostModal = ({ isModalActive, setIsModalActive }) => {
           onChange={(e) => handleInputForm(e, "description")}
           className="w-full rounded-sm min-h-[120px] border border-gray-300 bg-white shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none transition duration-200 resize-none pt-2 pl-2"
         />
+
+        <section>
+          <label
+            htmlFor="input-file"
+            className="rounded-sm flex items-center justify-center gap-2 flex-1 cursor-pointer h-10 bg-blue-600 hover:bg-blue-700 text-white font-semibold transition text-base"
+          >
+            Agregar archivo
+          </label>
+          <input
+            className="hidden"
+            type="file"
+            id="input-file"
+            onChange={(e) => handleFileForm(e)}
+          />
+          {imagePreview && (
+            <img
+              className="rounded-md h-100 w-100 object-contain"
+              src={imagePreview}
+              alt="preview image"
+            />
+          )}
+        </section>
 
         <div className="flex gap-3 justify-between">
           <button
