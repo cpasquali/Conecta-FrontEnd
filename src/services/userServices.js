@@ -49,10 +49,18 @@ export const register = async (e, userData) => {
   }
 };
 
-export const getAllUsers = async (id, username) => {
+export const getAllUsers = async (id, username, email) => {
   try {
     if (username) {
       const response = await fetch(`${BASE_URL}/users?username=${username}`);
+
+      const data = await response.json();
+
+      return data;
+    }
+
+    if (email) {
+      const response = await fetch(`${BASE_URL}/users?email=${email}`);
 
       const data = await response.json();
 

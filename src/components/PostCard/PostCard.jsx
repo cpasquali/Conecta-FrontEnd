@@ -143,7 +143,7 @@ export const PostCard = ({ post, widthPostCard = "w-full" }) => {
             )}
           </button>
           <span className="sm:text-lg font-medium text-gray-700">
-            {post.cant_likes}
+            {post?.cant_likes || 0}
           </span>
         </div>
         <div className="flex items-center gap-1">
@@ -154,7 +154,7 @@ export const PostCard = ({ post, widthPostCard = "w-full" }) => {
             <ion-icon name="chatbubble-outline"></ion-icon>
           </button>
           <span className="sm:text-lg font-medium text-gray-700">
-            {comments.length}
+            {comments?.length || 0}
           </span>
         </div>
       </div>

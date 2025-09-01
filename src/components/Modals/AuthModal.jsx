@@ -5,6 +5,7 @@ import { useAuth } from "../../context/AuthUserContext";
 import { useState } from "react";
 import { notify } from "../../utils/notify";
 import { useLocation } from "wouter";
+import { RegisterModal } from "./RegisterModal";
 
 export const AuthModal = ({
   isModalRegisterActive,
@@ -104,13 +105,18 @@ export const AuthModal = ({
   };
 
   if (authType === "register") {
-    return (
-      <BaseModal isOpen={isModalRegisterActive} width={400}>
+    return <RegisterModal />;
+    /* <BaseModal isOpen={isModalRegisterActive} width={400}>
         <h2 className="text-xl">Unete hoy gratis 🚀</h2>
         <form
-          className="flex flex-col gap-4 w-full h-124"
+          className="flex flex-col gap-4 w-full h-140"
           onSubmit={fetchRegister}
         >
+          <img
+            className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 object-cover"
+            src="https://www.researchgate.net/profile/Maria-Monreal/publication/315108532/figure/fig1/AS:472492935520261@1489662502634/Figura-2-Avatar-que-aparece-por-defecto-en-Facebook.png"
+            alt="Avatar"
+          />
           <Input
             type="text"
             onInputChange={(e) =>
@@ -182,8 +188,7 @@ export const AuthModal = ({
             Cerrar <ion-icon name="close-outline"></ion-icon>
           </button>
         </form>
-      </BaseModal>
-    );
+      </BaseModal> */
   }
 
   return (

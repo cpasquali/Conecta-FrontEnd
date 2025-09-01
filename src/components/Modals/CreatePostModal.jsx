@@ -43,7 +43,9 @@ export const CreatePostModal = ({ isModalActive, setIsModalActive }) => {
   };
 
   const handleFileForm = (e) => {
-    const image = e.target.files[0];
+    const image = e.target?.files[0];
+    if (!image) return;
+
     const preview = URL.createObjectURL(image);
     setImagePreview(preview);
     setForm({ ...form, image: image });
@@ -72,12 +74,25 @@ export const CreatePostModal = ({ isModalActive, setIsModalActive }) => {
         />
 
         <section>
-          <label
-            htmlFor="input-file"
-            className="rounded-sm flex items-center justify-center gap-2 flex-1 cursor-pointer h-10 bg-blue-600 hover:bg-blue-700 text-white font-semibold transition text-base"
-          >
-            Agregar archivo
-          </label>
+          {imagePreview ? (
+            <button
+              className="w-full rounded-sm flex items-center justify-center gap-2 flex-1 cursor-pointer h-10 bg-blue-600 hover:bg-blue-700 text-white font-semibold transition text-base"
+              onClick={() => {
+                setImagePreview(null);
+                setForm({ ...form, image: null });
+              }}
+            >
+              <ion-icon name="close-circle-outline"></ion-icon>
+            </button>
+          ) : (
+            <label
+              htmlFor="input-file"
+              className="rounded-sm flex items-center justify-center gap-2 flex-1 cursor-pointer h-10 bg-blue-600 hover:bg-blue-700 text-white font-semibold transition text-base"
+            >
+              <ion-icon name="image-outline"></ion-icon>
+            </label>
+          )}
+
           <input
             className="hidden"
             type="file"
@@ -86,7 +101,7 @@ export const CreatePostModal = ({ isModalActive, setIsModalActive }) => {
           />
           {imagePreview && (
             <img
-              className="rounded-md h-100 w-100 object-contain"
+              className="rounded-md h-25 mt-2 mb-2  w-25 object-contain"
               src={imagePreview}
               alt="preview image"
             />

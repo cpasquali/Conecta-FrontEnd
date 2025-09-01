@@ -55,6 +55,7 @@ export const PostInfoContainer = () => {
     const response = await createComment(post.id, user.id, newComment);
     notify(response.message, "success");
     setComments([response.newComment, ...comments]);
+    setNewComment("");
   };
 
   const togglePostLike = async () => {
@@ -128,7 +129,7 @@ export const PostInfoContainer = () => {
             )}
           </button>
           <span className="text-base font-medium text-gray-700">
-            {post.cant_likes}
+            {post?.cant_likes || 0}
           </span>
         </div>
         <div className="flex items-center gap-1">
@@ -139,7 +140,7 @@ export const PostInfoContainer = () => {
             <ion-icon name="chatbubble-outline"></ion-icon>
           </button>
           <span className="text-base font-medium text-gray-700">
-            {comments.length}
+            {comments?.length || 0}
           </span>
         </div>
       </section>
@@ -175,6 +176,7 @@ export const PostInfoContainer = () => {
             type="text"
             placeholder="Se el primero en comentar..."
             onInputChange={(e) => setNewComment(e.target.value)}
+            value={newComment}
           />
           <button
             type="submit"
