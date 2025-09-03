@@ -16,7 +16,7 @@ export const LogInModal = ({ isModalActive, setIsModalActive }) => {
 
   const fetchLogin = async () => {
     const emptyInputs = Object.entries(loginForm)
-      ?.filter(([__, value]) => value === "")
+      ?.filter(([_, value]) => value === "")
       ?.map(([Key]) => Key);
 
     if (emptyInputs.length > 0) {

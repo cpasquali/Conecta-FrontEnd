@@ -2,7 +2,13 @@ import { useEffect, useRef, useState } from "react";
 import { Input } from "../Input";
 import { getAllUsers } from "../../services/userServices";
 
-export const StepCard = ({ step, setStep, registerForm, setRegisterForm }) => {
+export const StepCard = ({
+  step,
+  setStep,
+  registerForm,
+  setRegisterForm,
+  fetchRegister,
+}) => {
   const [imagePreview, setImagePreview] = useState(null);
   const [debouncedEmail, setDebouncedEmail] = useState("");
   const [debouncedUsername, setDebouncedUsername] = useState("");
@@ -56,6 +62,25 @@ export const StepCard = ({ step, setStep, registerForm, setRegisterForm }) => {
     fetchAllUsers("username");
   }, [debouncedUsername]);
 
+  const buttonDisabled =
+    (step === 1 &&
+      (!registerForm.first_name ||
+        !registerForm.last_name ||
+        !registerForm.email)) ||
+    isEmailRegistered
+      ? true
+      : (step === 2 &&
+          (!registerForm.username ||
+            !registerForm.password ||
+            !registerForm.confirmPassword)) ||
+        isUsernameRegistered
+      ? true
+      : false;
+
+  const buttonClass = buttonDisabled
+    ? "bg-gray-600  hover:bg-gray-600"
+    : "bg-blue-600 hover:bg-blue-700";
+
   if (step === 1) {
     return (
       <section className="flex flex-col gap-4 w-[80%]">
@@ -92,15 +117,14 @@ export const StepCard = ({ step, setStep, registerForm, setRegisterForm }) => {
         <section className="flex gap-2 w-full">
           <button
             onClick={() => setStep((prevStep) => prevStep + 1)}
-            className="rounded-sm gap-2 h-12 cursor-pointer flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold transition text-base"
+            disabled={buttonDisabled}
+            className={`rounded-sm gap-2 h-12 cursor-pointer flex-1 ${buttonClass} bg-blue-600 hover:bg-blue-700 text-white font-semibold transition text-base`}
           >
             Siguiente
           </button>
         </section>
       </section>
     );
-
-    //fetchRegister()
   } else if (step === 2) {
     return (
       <section className="flex flex-col gap-4 w-[80%]">
@@ -136,16 +160,17 @@ export const StepCard = ({ step, setStep, registerForm, setRegisterForm }) => {
             Nombre de usuario ya registrado...
           </p>
         )}
-        <section>
+        <section className="flex items-center justify-center gap-2">
           <button
             onClick={() => setStep((prevStep) => prevStep + 1)}
-            className="rounded-sm gap-2 h-12 cursor-pointer flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold transition text-base"
+            disabled={buttonDisabled}
+            className={`rounded-sm gap-2 h-12 cursor-pointer flex-1 ${buttonClass} bg-blue-600 hover:bg-blue-700 text-white font-semibold transition text-base`}
           >
             Siguiente
           </button>
           <button
-            onClick={() => setStep((prevStep) => prevStep + 1)}
-            className="rounded-sm gap-2 h-12 cursor-pointer flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold transition text-base"
+            onClick={() => setStep((prevStep) => prevStep - 1)}
+            className="rounded-sm gap-2 h-12 cursor-pointer flex-1 bg-gray-400  hover:bg-gray-600 text-white font-semibold transition text-base"
           >
             Volver
           </button>
@@ -176,11 +201,24 @@ export const StepCard = ({ step, setStep, registerForm, setRegisterForm }) => {
               </label>
             </section>
           ) : (
-            <img
-              className="w-10 h-10 sm:w-50 sm:h-50 rounded-full border-2 object-contain"
-              src={imagePreview}
-              alt="foto de perfil"
-            />
+            <section>
+              <label className="relative">
+                <img
+                  className="w-10 h-10 sm:w-50 sm:h-50 rounded-full border-2 object-contain relative"
+                  src={imagePreview}
+                  alt="foto de perfil"
+                />
+                <p
+                  onClick={() => {
+                    setRegisterForm({ ...registerForm, image: null });
+                    setImagePreview(null);
+                  }}
+                  className="flex cursor-pointer items-center justify-center w-10 h-10 bottom-0 right-6 bg-red-600 hover:bg-red-700 text-white font-semibold transition text-2xl rounded-full absolute"
+                >
+                  <ion-icon name="close-outline"></ion-icon>
+                </p>
+              </label>
+            </section>
           )}
         </section>
 
@@ -193,6 +231,20 @@ export const StepCard = ({ step, setStep, registerForm, setRegisterForm }) => {
         <article className="flex items-center rounded-sm h-12 pl-4 pr-4 border border-gray-300 bg-white shadow-sm">
           <p className="text-gray-600">@{registerForm.username}</p>
         </article>
+        <section className="flex items-center justify-center gap-2">
+          <button
+            onClick={fetchRegister}
+            className="rounded-sm gap-2 h-12 cursor-pointer flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold transition text-base"
+          >
+            Crear
+          </button>
+          <button
+            onClick={() => setStep((prevStep) => prevStep - 1)}
+            className="rounded-sm gap-2 h-12 cursor-pointer flex-1 bg-gray-400  hover:bg-gray-600 text-white font-semibold transition text-base"
+          >
+            Volver
+          </button>
+        </section>
       </section>
     );
   }

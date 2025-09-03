@@ -7,6 +7,7 @@ import {
   removeFollower,
   addFollower,
   getUserByUsername,
+  getUserFollowing,
 } from "../../services/userServices";
 import { notify } from "../../utils/notify";
 import { UpdateUserModal } from "../Modals/UpdateUserModal";
@@ -62,8 +63,14 @@ export const ProfileContainer = () => {
     }
   };
 
+  const fetchGetUserFollowing = async () => {
+    const response = await getUserFollowing(user.id);
+    setUserFollowing(response);
+  };
+
   useEffect(() => {
     fetchProfile();
+    fetchGetUserFollowing();
   }, [username]);
 
   if (isLoading) {
@@ -71,7 +78,7 @@ export const ProfileContainer = () => {
   }
 
   return (
-    <section className="mt-6 flex flex-col items-center justify-center gap-4 px-4">
+    <section className="mt-6 flex flex-col items-center justify-center gap-4">
       <section className="flex items-center justify-evenly sm:justify-center sm:gap-6 w-full">
         <img
           className="w-14 h-14 sm:w-34 sm:h-34 rounded-full object-cover border border-gray-400"

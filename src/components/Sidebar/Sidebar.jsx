@@ -2,9 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useAuth } from "../../context/AuthUserContext";
 import { Link, useLocation } from "wouter";
 import { getAllUsers } from "../../services/userServices";
-import { getAllCommunities } from "../../services/communitiesService";
 import { UserCard } from "../UserCard/UserCard";
-import { CommunityCard } from "../CommunityCard/CommunityCard";
 
 export const Sidebar = ({ position }) => {
   const { user, setUser } = useAuth();
@@ -14,7 +12,6 @@ export const Sidebar = ({ position }) => {
   const [search, setSearch] = useState("");
   const timeoutRef = useRef(null);
   const [userList, setUserList] = useState([]);
-  const [communities, setCommunities] = useState([]);
   const full_name = user.first_name + " " + user.last_name;
   const [currentSelectedDetail, setCurrentSelectedDetail] = useState("");
 
@@ -48,17 +45,12 @@ export const Sidebar = ({ position }) => {
     }
   };
 
+  const fetchApi = async () => {
+    const users = await getAllUsers(user.id);
+    setUserList(users);
+  };
+
   useEffect(() => {
-    const fetchApi = async () => {
-      const [users, communities] = await Promise.all([
-        getAllUsers(user.id),
-        getAllCommunities(),
-      ]);
-
-      setUserList(users);
-      setCommunities(communities);
-    };
-
     fetchApi();
   }, [user.id]);
 
@@ -69,7 +61,7 @@ export const Sidebar = ({ position }) => {
 
   if (position === "right") {
     return (
-      <section className="hidden sm:flex flex-col fixed top-0 right-10 gap-10 border-l border-gray-200 h-full pl-8 pt-10 w-[26rem]">
+      <section className="hidden sm:flex flex-col fixed top-0 right-0 gap-10 border-l bg-white border-gray-200 h-full pl-3 p-3 pt-10 w-[28%] z-50">
         <section className="flex flex-col gap-2">
           <input
             type="search"
@@ -77,7 +69,7 @@ export const Sidebar = ({ position }) => {
             className="bg-white border border-gray-200 p-4 rounded-sm w-full"
             onChange={(e) => debounce(e.target.value)}
           />
-          <section className="flex flex-col gap-2">
+          <section className="flex flex-col gap-2 ">
             {findUsers && findUsers.length > 0 ? (
               findUsers.map((u) => <UserCard key={u.id} u={u} />)
             ) : (
@@ -86,18 +78,12 @@ export const Sidebar = ({ position }) => {
           </section>
         </section>
 
-        <section className="flex flex-col gap-2 bg-white border border-gray-200 p-4 rounded-sm">
-          <p className="text-gray-500">
+        <section className="flex flex-col gap-2  border border-gray-200 w-full bg-white p-4 rounded-sm">
+          <p className="text-gray-500 text-center">
             ¡Seguí a otros usuarios para ver más contenido!
           </p>
           {userList.slice(0, 3).map((u) => (
             <UserCard key={u.id} u={u} />
-          ))}
-        </section>
-        <section className="flex flex-col gap-2 bg-white border border-gray-200 p-4 rounded-sm">
-          <p className="text-gray-500">¡Ingresa a una comunidad!</p>
-          {communities.slice(0, 3).map((c) => (
-            <CommunityCard key={c.id} community={c} />
           ))}
         </section>
       </section>
@@ -105,7 +91,7 @@ export const Sidebar = ({ position }) => {
   }
 
   return (
-    <section className="hidden fixed left-0 h-full w-[26rem] bg-white border-r border-gray-200  sm:flex flex-col justify-between p-6 z-50">
+    <section className="hidden fixed left-0 h-full w-[28%] bg-white border-r border-gray-200  sm:flex flex-col justify-between p-6 z-50">
       <section className="flex flex-col gap-6">
         <h2 className="text-3xl font-extrabold text-blue-700 tracking-wide select-none">
           Conecta
@@ -156,7 +142,7 @@ export const Sidebar = ({ position }) => {
                   <summary className="ml-3 flex cursor-pointer items-center justify-between rounded-lg px-4 py-2">
                     <span className="text-lg font-medium">Cuenta</span>
 
-                    <span className="shrink-0 transition duration-300 group-open:-rotate-180 absolute right-54">
+                    <span className="shrink-0 transition duration-300 group-open:-rotate-180 absolute right-44">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="size-5"

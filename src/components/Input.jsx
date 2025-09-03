@@ -39,10 +39,11 @@ export const Input = ({
           placeholder={placeholder}
           onChange={onInputChange}
           ref={ref}
+          value={value}
           name={name}
         />
         <button
-          className="absolute right-4 top-3 text-2xl cursor-pointer"
+          className="absolute right-4 top-[30%] text-2xl cursor-pointer"
           onClick={(e) => {
             e.preventDefault();
             setIsShowPassword(!isShowPassword);

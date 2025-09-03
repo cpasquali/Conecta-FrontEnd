@@ -23,15 +23,15 @@ export const MainContent = () => {
         <div>
           <MobileNavbar />
           <Sidebar />
-          <main className="flex-1 sm:pl-[18rem] pb-[4rem]">
+          <main className="sm:w-[44%] sm:justify-self-center">
             <Switch>
               <Route path="/" component={PostList} />
               <Route path="/explore" component={ExploreContainter} />
               <Route path="/post/:id" component={PostInfoContainer} />
               <Route path="/user/:username" component={ProfileContainer} />
             </Switch>
-            {location === "/" && <Sidebar position="right" />}
           </main>
+          <Sidebar position="right" />
         </div>
       ) : (
         <WelcomePage />
