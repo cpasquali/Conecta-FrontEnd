@@ -101,9 +101,10 @@ export const PostInfoContainer = () => {
       <section className="flex items-center gap-4">
         <img
           className="h-12 w-12 sm:h-14 sm:w-14 rounded-full border object-cover"
-          src="https://www.researchgate.net/profile/Maria-Monreal/publication/315108532/figure/fig1/AS:472492935520261@1489662502634/Figura-2-Avatar-que-aparece-por-defecto-en-Facebook.png"
+          src={post.profile_img}
           alt="Avatar"
         />
+
         <div className="flex flex-col">
           <Link
             to={`/user/${post.username}`}

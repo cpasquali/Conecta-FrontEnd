@@ -208,7 +208,7 @@ export const Sidebar = ({ position }) => {
           <section className="w-full bg-white p-4 hover:bg-gray-50">
             <section className="flex items-center gap-4 ">
               <img
-                src="https://www.researchgate.net/profile/Maria-Monreal/publication/315108532/figure/fig1/AS:472492935520261@1489662502634/Figura-2-Avatar-que-aparece-por-defecto-en-Facebook.png"
+                src={user.image_url}
                 alt="Avatar"
                 className="size-14 rounded-full object-cover"
               />

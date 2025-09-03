@@ -26,6 +26,7 @@ export const BaseModal = ({
       margin: "auto",
       overflow: "hidden",
       marginTop: "40px",
+      position: "relative",
     },
   };
 

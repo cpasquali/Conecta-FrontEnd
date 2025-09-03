@@ -2,8 +2,9 @@ import { AuthModal } from "../Modals/AuthModal";
 import { useState } from "react";
 
 export const WelcomePage = () => {
-  const [isModalRegisterActive, setIsModalRegisterActive] = useState(false);
-  const [isModalLoginActive, setIsModalLoginActive] = useState(false);
+  const [isModalActive, setIsModalActive] = useState(false);
+  const [typeModal, setTypeModal] = useState("login");
+
   return (
     <section className="w-full flex flex-col justify-center items-center px-6 text-black sm:h-full">
       <header className="w-full max-w-6xl flex justify-between items-center py-6">
@@ -27,14 +28,20 @@ export const WelcomePage = () => {
 
           <div className="flex gap-5">
             <button
-              onClick={() => setIsModalLoginActive(!isModalLoginActive)}
+              onClick={() => {
+                setIsModalActive(!isModalActive);
+                setTypeModal("login");
+              }}
               href="/login"
               className="rounded-sm flex items-center text-white justify-center w-32 h-10 bg-blue-500 hover:bg-blue-600 font-semibold transition cursor-pointer"
             >
               Iniciar sesion
             </button>
             <button
-              onClick={() => setIsModalRegisterActive(!isModalRegisterActive)}
+              onClick={() => {
+                setIsModalActive(!isModalActive);
+                setTypeModal("register");
+              }}
               href="/register"
               className="rounded-sm flex items-center justify-center w-32 h-10 border-2 border-blue-500 text-black hover:bg-blue-500 hover:text-white font-semibold transition cursor-pointer"
             >
@@ -59,13 +66,9 @@ export const WelcomePage = () => {
         reservados.
       </footer>
       <AuthModal
-        isModalLoginActive={isModalLoginActive}
-        setIsModalLoginActive={setIsModalLoginActive}
-      />
-      <AuthModal
-        isModalRegisterActive={isModalRegisterActive}
-        setIsModalRegisterActive={setIsModalRegisterActive}
-        authType="register"
+        isModalActive={isModalActive}
+        setIsModalActive={setIsModalActive}
+        authType={typeModal}
       />
     </section>
   );

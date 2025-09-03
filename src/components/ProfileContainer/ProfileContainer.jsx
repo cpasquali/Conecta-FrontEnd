@@ -75,9 +75,10 @@ export const ProfileContainer = () => {
       <section className="flex items-center justify-evenly sm:justify-center sm:gap-6 w-full">
         <img
           className="w-14 h-14 sm:w-34 sm:h-34 rounded-full object-cover border border-gray-400"
-          src="https://www.researchgate.net/profile/Maria-Monreal/publication/315108532/figure/fig1/AS:472492935520261@1489662502634/Figura-2-Avatar-que-aparece-por-defecto-en-Facebook.png"
+          src={profile.image_url}
           alt="imagen de perfil"
         />
+
         <section className="flex flex-col items-start sm:items-start gap-2">
           <h2 className="text-sm sm:text-xl font-semibold">{fullName}</h2>
           <section className="flex gap-6 text-sm">

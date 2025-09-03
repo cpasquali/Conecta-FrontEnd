@@ -80,7 +80,7 @@ export const PostCard = ({ post, widthPostCard = "w-full" }) => {
         <div className="flex gap-4">
           <img
             className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 object-cover"
-            src="https://www.researchgate.net/profile/Maria-Monreal/publication/315108532/figure/fig1/AS:472492935520261@1489662502634/Figura-2-Avatar-que-aparece-por-defecto-en-Facebook.png"
+            src={post.profile_img}
             alt="Avatar"
           />
           <div>

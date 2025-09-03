@@ -1,7 +1,6 @@
 const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
-export const login = async (e, userData) => {
-  e.preventDefault();
+export const login = async (userData) => {
   try {
     const response = await fetch(`${BASE_URL}/users/login`, {
       method: "POST",
@@ -20,24 +19,23 @@ export const login = async (e, userData) => {
   }
 };
 
-export const register = async (e, userData) => {
-  e.preventDefault();
+export const register = async (userData) => {
   try {
     if (userData.password !== userData.confirmPassword) {
       return { message: "Las contraseñas deben ser iguales", status: "error" };
     }
+
+    const formData = new FormData();
+    formData.append("first_name", userData.first_name);
+    formData.append("last_name", userData.last_name);
+    formData.append("username", userData.username);
+    formData.append("email", userData.email);
+    formData.append("password", userData.password);
+    formData.append("image", userData.image);
+
     const response = await fetch(`${BASE_URL}/users/register`, {
       method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({
-        first_name: userData.first_name,
-        last_name: userData.last_name,
-        username: userData.username,
-        email: userData.email,
-        password: userData.password,
-      }),
+      body: formData,
     });
     const data = await response.json();
     const status = response.ok ? "success" : "error";
