@@ -50,11 +50,23 @@ export const UpdateUserModal = ({ isModalActive, setIsModalActive }) => {
               onChange={(e) => handleForm(e, "image")}
             />
             {imagePreview ? (
-              <img
-                className="w-10 h-10 sm:w-50 sm:h-50 rounded-full border-2 object-cover"
-                src={imagePreview}
-                alt="Avatar"
-              />
+              <section>
+                <label className="relative">
+                  <img
+                    className="w-10 h-10 sm:w-50 sm:h-50 rounded-full border-2 object-contain relative"
+                    src={imagePreview}
+                    alt="foto de perfil"
+                  />
+                  <p
+                    onClick={() => {
+                      setImagePreview(null);
+                    }}
+                    className="flex cursor-pointer items-center justify-center w-10 h-10 bottom-0 right-6 bg-red-600 hover:bg-red-700 text-white font-semibold transition text-2xl rounded-full absolute"
+                  >
+                    <ion-icon name="close-outline"></ion-icon>
+                  </p>
+                </label>
+              </section>
             ) : (
               <label htmlFor="file" className="cursor-pointer relative">
                 <img
