@@ -133,20 +133,21 @@ export const getUserFollowing = async (id) => {
   }
 };
 
-export const updateUser = async (id, formData) => {
+export const updateUser = async (id, userUpdateData) => {
   try {
+    const formData = new FormData();
+    formData.append("first_name", userUpdateData.first_name);
+    formData.append("last_name", userUpdateData.last_name);
+    formData.append("image", userUpdateData.image);
+
     const response = await fetch(`${BASE_URL}/users/update/${id}`, {
-      method: "POST",
-      headers: { "Content-Type": "Application/json" },
-      body: JSON.stringify({
-        first_name: formData.first_name,
-        last_name: formData.last_name,
-      }),
+      method: "PATCH",
+      body: formData,
     });
 
     const data = await response.json();
 
-    return data.message;
+    return { message: data.message, updatedUser: data.updatedUser };
   } catch (e) {
     console.log(e.message);
   }

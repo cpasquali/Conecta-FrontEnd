@@ -79,7 +79,7 @@ export const ProfileContainer = () => {
 
   return (
     <section className="mt-6 flex flex-col items-center justify-center gap-4">
-      <section className="flex items-center justify-evenly sm:justify-center sm:gap-6 w-full">
+      <section className="flex items-center justify-evenly sm:justify-center sm:gap-10 w-full">
         <img
           className="w-14 h-14 sm:w-34 sm:h-34 rounded-full object-cover border border-gray-400"
           src={profile.image_url}
@@ -87,15 +87,15 @@ export const ProfileContainer = () => {
         />
 
         <section className="flex flex-col items-start sm:items-start gap-2">
-          <h2 className="text-sm sm:text-xl font-semibold">{fullName}</h2>
-          <section className="flex gap-6 text-sm">
-            <h3 className="font-semibold text-gray-500">
+          <h2 className="text-sm sm:text-2xl font-semibold">{fullName}</h2>
+          <section className="flex gap-6">
+            <h3 className="text-sm sm:text-base font-semibold text-gray-500">
               <span className="text-black mr-1">
                 {profile.cant_followers || 0}
               </span>
               seguidores
             </h3>
-            <h3 className="font-semibold text-gray-500">
+            <h3 className="text-sm sm:text-base font-semibold text-gray-500">
               <span className="text-black mr-1">
                 {profile.cant_following || 0}
               </span>
@@ -105,7 +105,7 @@ export const ProfileContainer = () => {
         </section>
       </section>
 
-      <section className="flex gap-2">
+      <section className="flex gap-2 sm:mt-4">
         <button
           onClick={toggleFollowUser}
           className={`${
