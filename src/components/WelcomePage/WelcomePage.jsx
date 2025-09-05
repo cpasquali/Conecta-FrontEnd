@@ -69,6 +69,7 @@ export const WelcomePage = () => {
         isModalActive={isModalActive}
         setIsModalActive={setIsModalActive}
         authType={typeModal}
+        setTypeModal={setTypeModal}
       />
     </section>
   );

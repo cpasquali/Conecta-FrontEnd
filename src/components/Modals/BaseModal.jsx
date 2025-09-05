@@ -5,6 +5,7 @@ export const BaseModal = ({
   isOpen,
   children,
   width = 400,
+  height,
   backgroundColorOverlay = "rgba(0, 0, 0, 0.2)",
 }) => {
   const modalStyles = {
@@ -16,6 +17,7 @@ export const BaseModal = ({
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
+      justifyContent: "center",
       gap: "20px",
       backgroundColor: "white",
       width: "90%",
@@ -27,6 +29,7 @@ export const BaseModal = ({
       overflow: "hidden",
       marginTop: "40px",
       position: "relative",
+      height: `${height}px`,
     },
   };
 

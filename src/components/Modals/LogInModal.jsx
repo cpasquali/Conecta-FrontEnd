@@ -1,48 +1,24 @@
 import { BaseModal } from "./BaseModal";
-import { useState } from "react";
-import { login } from "../../services/userServices";
-import { notify } from "../../utils/notify";
-import { useAuth } from "../../context/AuthUserContext";
 import { Input } from "../Input";
+import { useLoginForm } from "../../hooks/useLoginForm";
 
-export const LogInModal = ({ isModalActive, setIsModalActive }) => {
-  const [loginForm, setLoginForm] = useState({
-    emailOrUsername: "",
-    password: "",
-  });
-  const { setUser } = useAuth();
-
-  const [emptyInputs, setEmptyInputs] = useState([]);
-
-  const fetchLogin = async () => {
-    const emptyInputs = Object.entries(loginForm)
-      ?.filter(([_, value]) => value === "")
-      ?.map(([Key]) => Key);
-
-    if (emptyInputs.length > 0) {
-      setEmptyInputs(emptyInputs);
-      const timeout = setTimeout(() => {
-        setEmptyInputs([]);
-        clearTimeout(timeout);
-      }, 1000);
-      notify("Todos los campos deben estar completos", "error");
-      return;
-    }
-
-    const response = await login(loginForm);
-    notify(response.message, response.status);
-    setUser(response.user);
-  };
+export const LogInModal = ({
+  isModalActive,
+  setIsModalActive,
+  setTypeModal,
+}) => {
+  const { handleChange, emptyInputs, handleSubmit } = useLoginForm();
 
   return (
-    <BaseModal isOpen={isModalActive} width={600}>
-      <h2 className="text-xl">Ingresar 🚀</h2>
-      <section className="flex flex-col gap-4 w-[80%] h-52">
+    <BaseModal isOpen={isModalActive} width={500} height={500}>
+      <section className="flex flex-col gap-4 w-[80%] justify-center h-full">
+        <h2 className="text-2xl text-center absolute top-16 left-1/2 -translate-x-1/2">
+          Ingresar 🚀
+        </h2>
+
         <Input
           type="text"
-          onInputChange={(e) =>
-            setLoginForm({ ...loginForm, ["emailOrUsername"]: e.target.value })
-          }
+          onInputChange={(e) => handleChange("emailOrUsername", e.target.value)}
           placeholder="Email o Nombre de usuario..."
           className={`${
             emptyInputs?.some((value) => value === "emailOrUsername")
@@ -52,9 +28,7 @@ export const LogInModal = ({ isModalActive, setIsModalActive }) => {
         />
         <Input
           type="password"
-          onInputChange={(e) =>
-            setLoginForm({ ...loginForm, ["password"]: e.target.value })
-          }
+          onInputChange={(e) => handleChange("password", e.target.value)}
           placeholder="Contraseña..."
           className={`${
             emptyInputs?.some((value) => value === "password")
@@ -63,20 +37,30 @@ export const LogInModal = ({ isModalActive, setIsModalActive }) => {
           } h-15`}
         />
         <button
-          onClick={fetchLogin}
-          className="rounded-sm gap-2 h-12 cursor-pointer flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold transition text-base"
+          onClick={handleSubmit}
+          className="rounded-sm gap-2 h-12 cursor-pointer bg-blue-600 hover:bg-blue-700 text-white font-semibold transition text-base"
         >
           Iniciar sesion
         </button>
+
+        <button
+          onClick={() => {
+            setIsModalActive(!isModalActive);
+          }}
+          className="text-2xl cursor-pointer border border-gray-400 flex items-center justify-center rounded-full w-10 h-10 absolute top-6 right-6"
+        >
+          <ion-icon name="close-outline"></ion-icon>
+        </button>
+        <p className="text-center mt-2">
+          ¿No tienes una cuenta?{" "}
+          <span
+            className="text-blue-500 cursor-pointer"
+            onClick={() => setTypeModal("register")}
+          >
+            Regístrate
+          </span>
+        </p>
       </section>
-      <button
-        onClick={() => {
-          setIsModalActive(!isModalActive);
-        }}
-        className="text-2xl cursor-pointer border border-gray-400 flex items-center justify-center rounded-full w-10 h-10 absolute top-6 right-6"
-      >
-        <ion-icon name="close-outline"></ion-icon>
-      </button>
     </BaseModal>
   );
 };

@@ -5,12 +5,14 @@ export const AuthModal = ({
   isModalActive,
   setIsModalActive,
   authType = "login",
+  setTypeModal,
 }) => {
   if (authType === "register") {
     return (
       <RegisterModal
         isModalActive={isModalActive}
         setIsModalActive={setIsModalActive}
+        setTypeModal={setTypeModal}
       />
     );
   }
@@ -19,6 +21,7 @@ export const AuthModal = ({
     <LogInModal
       isModalActive={isModalActive}
       setIsModalActive={setIsModalActive}
+      setTypeModal={setTypeModal}
     />
   );
 };
