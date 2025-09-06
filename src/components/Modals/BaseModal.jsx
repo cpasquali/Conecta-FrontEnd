@@ -4,7 +4,7 @@ ReactModal.setAppElement("#root");
 export const BaseModal = ({
   isOpen,
   children,
-  width = 400,
+  width,
   height,
   backgroundColorOverlay = "rgba(0, 0, 0, 0.2)",
 }) => {
