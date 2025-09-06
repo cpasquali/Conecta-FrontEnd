@@ -31,7 +31,7 @@ export const StepOne = ({ registerForm, handleChange, setStep, debounce }) => {
     : "bg-blue-600 hover:bg-blue-700";
 
   return (
-    <section className="flex flex-col w-[80%] gap-4">
+    <section className="flex flex-col w-full sm:w-[90%] gap-4">
       <Input
         placeholder="Nombre"
         type="text"

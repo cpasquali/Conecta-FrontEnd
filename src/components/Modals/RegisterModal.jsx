@@ -13,10 +13,12 @@ export const RegisterModal = ({
   return (
     <BaseModal isOpen={isModalActive} width="500px" height={500}>
       <section className="flex items-center flex-col gap-4 justify-center w-full">
-        <h2 className="text-2xl">Crea tu cuenta 🚀</h2>
+        <h2 className="text-2xl text-center absolute top-34 sm:top-8 left-1/2 -translate-x-1/2">
+          Crea tu cuenta 🚀
+        </h2>
         <ProgressBar step={step} />
         <StepCard step={step} setStep={setStep} />
-        <p>
+        <p className="text-center mt-2">
           ¿Ya tienes una cuenta?{" "}
           <span
             className="text-blue-500 cursor-pointer"

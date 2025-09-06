@@ -11,8 +11,8 @@ export const LogInModal = ({
 
   return (
     <BaseModal isOpen={isModalActive} width="500px" height={500}>
-      <section className="flex flex-col gap-4 w-[80%] justify-center h-full">
-        <h2 className="text-2xl text-center absolute top-16 left-1/2 -translate-x-1/2">
+      <section className="flex flex-col gap-4 w-full mb-16 sm:mb-0 sm:w-[90%] justify-center">
+        <h2 className="text-2xl text-center absolute top-34 sm:top-8 left-1/2 -translate-x-1/2">
           Ingresar 🚀
         </h2>
 
@@ -41,6 +41,12 @@ export const LogInModal = ({
           className="rounded-sm gap-2 h-12 cursor-pointer bg-blue-600 hover:bg-blue-700 text-white font-semibold transition text-base"
         >
           Iniciar sesion
+        </button>
+        <button
+          onClick={handleSubmit}
+          className="rounded-sm gap-2 h-12 cursor-pointer border border-blue-600 hover:bg-gray-200 text-blue-600 font-semibold transition text-base"
+        >
+          ¿Olvidaste tu contraseña?
         </button>
 
         <button

@@ -4,8 +4,6 @@ ReactModal.setAppElement("#root");
 export const BaseModal = ({
   isOpen,
   children,
-  width,
-  height,
   backgroundColorOverlay = "rgba(0, 0, 0, 0.2)",
 }) => {
   const modalStyles = {
@@ -14,26 +12,17 @@ export const BaseModal = ({
       zIndex: 999,
     },
     content: {
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center",
-      gap: "20px",
-      backgroundColor: "white",
-      width: `${width}`,
-      justifySelf: "center",
-      padding: "2rem",
-      borderRadius: "10px",
-      margin: "auto",
       overflow: "hidden",
-      marginTop: "40px",
-      position: "relative",
-      height: `${height}px`,
+      position: "absolute",
     },
   };
 
   return (
-    <ReactModal className="base-modal" style={modalStyles} isOpen={isOpen}>
+    <ReactModal
+      className="base-modal p-[2rem] sm:rounded-xl flex items-center justify-center bg-white w-full h-full sm:w-[500px] sm:h-[500px] left-1/2 -translate-x-1/2 sm:top-10"
+      style={modalStyles}
+      isOpen={isOpen}
+    >
       {children}
     </ReactModal>
   );
