@@ -31,7 +31,7 @@ export const StepTwo = ({ debounce, handleChange, registerForm, setStep }) => {
     : "bg-blue-600 hover:bg-blue-700";
 
   return (
-    <section className="flex flex-col gap-4 w-[80%]">
+    <section className="flex flex-col gap-4 w-full sm:w-[90%]">
       <Input
         placeholder="Nombre de usuario"
         type="text"

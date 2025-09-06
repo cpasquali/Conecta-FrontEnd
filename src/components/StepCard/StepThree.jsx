@@ -7,7 +7,7 @@ export const StepThree = ({
   setStep,
 }) => {
   return (
-    <section className="flex flex-col gap-4 w-[80%]">
+    <section className="flex flex-col gap-4 w-full sm:w-[90%]">
       <section className="flex justify-center items-center">
         {!previewImage ? (
           <section>
