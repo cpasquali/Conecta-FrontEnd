@@ -15,10 +15,10 @@ export const UserInfoModal = ({ profile, isOpenModal, setIsOpenModal }) => {
   const [isDeleteModalActive, setIsModalDeleteActive] = useState(false);
 
   return (
-    <BaseModal isOpen={isOpenModal} width="610px">
-      <section className="flex items-center justify-center flex-col gap-6 w-full">
+    <BaseModal isOpen={isOpenModal} width="610px" isResponsiveModal={true}>
+      <section className="flex items-center justify-center flex-col gap-6 w-full p-4">
         <img
-          className="w-10 h-10 sm:w-22 sm:h-22 rounded-full border-2 object-cover"
+          className="w-24 h-24 sm:w-30 sm:h-30 rounded-full border-2 object-cover"
           src="https://www.researchgate.net/profile/Maria-Monreal/publication/315108532/figure/fig1/AS:472492935520261@1489662502634/Figura-2-Avatar-que-aparece-por-defecto-en-Facebook.png"
           alt="Avatar"
         />
@@ -50,13 +50,14 @@ export const UserInfoModal = ({ profile, isOpenModal, setIsOpenModal }) => {
             </div>
           </article>
         )}
+        <button
+          className="rounded-sm h-10 w-full bg-gray-400  hover:bg-gray-600 text-white font-semibold transition text-base cursor-pointer"
+          onClick={() => setIsOpenModal(!isOpenModal)}
+        >
+          Cerrar
+        </button>
       </section>
-      <button
-        className="rounded-sm w-[75%] h-10 bg-gray-400  hover:bg-gray-600 text-white font-semibold transition text-base cursor-pointer"
-        onClick={() => setIsOpenModal(!isOpenModal)}
-      >
-        Cerrar
-      </button>
+
       <DeleteUserModal
         isDeleteModalActive={isDeleteModalActive}
         setIsModalDeleteActive={setIsModalDeleteActive}

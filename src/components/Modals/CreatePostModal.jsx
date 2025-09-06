@@ -52,8 +52,8 @@ export const CreatePostModal = ({ isModalActive, setIsModalActive }) => {
   };
 
   return (
-    <BaseModal isOpen={isModalActive} width="410px">
-      <div className="flex flex-col gap-5 p-4">
+    <BaseModal isOpen={isModalActive} width="410px" isResponsiveModal={true}>
+      <div className="flex flex-col gap-5 p-4 w-full">
         <h2 className="text-2xl font-semibold text-gray-800 text-center">
           🚀 Comparte tus novedades
         </h2>

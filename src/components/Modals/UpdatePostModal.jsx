@@ -19,8 +19,16 @@ export const UpdatePostModal = ({
   };
 
   return (
-    <BaseModal isOpen={isOpenUpdatePostModal} width="400px">
-      <section className="flex flex-col gap-4 h-30 w-full">
+    <BaseModal
+      isOpen={isOpenUpdatePostModal}
+      width="400px"
+      isResponsiveModal={true}
+      height="100"
+    >
+      <section className="flex flex-col gap-4 h-50 w-full px-4">
+        <h2 className="text-2xl font-semibold text-gray-800 text-center mb-1">
+          Posteo
+        </h2>
         <button
           onClick={fetchDeletePost}
           className="rounded-sm flex items-center justify-center gap-2 flex-1 cursor-pointer w-full h-10 bg-red-600  hover:bg-red-700 text-white font-semibold transition text-base"

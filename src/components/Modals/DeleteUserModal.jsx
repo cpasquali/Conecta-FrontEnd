@@ -26,8 +26,12 @@ export const DeleteUserModal = ({
   };
 
   return (
-    <BaseModal width="450px" isOpen={isDeleteModalActive}>
-      <section className="flex flex-col items-center justify-center gap-4 mt-2">
+    <BaseModal
+      width="450px"
+      isOpen={isDeleteModalActive}
+      isResponsiveModal={true}
+    >
+      <section className="flex flex-col items-center justify-center w-full gap-4 mt-2 p-4">
         <h2 className="text-2xl">Eliminacion de cuenta</h2>
         <p>La cuenta sera eliminada de forma permanente</p>
         <Input
@@ -42,7 +46,7 @@ export const DeleteUserModal = ({
           Eliminar
         </button>
         <button
-          className="rounded-sm w-[75%] h-10 bg-gray-400  hover:bg-gray-600 text-white font-semibold transition text-base cursor-pointer"
+          className="rounded-sm w-full min-h-12 bg-gray-400  hover:bg-gray-600 text-white font-semibold transition text-base cursor-pointer"
           onClick={() => setIsModalDeleteActive(!isDeleteModalActive)}
         >
           Cerrar
