@@ -11,8 +11,8 @@ export const RegisterModal = ({
   const [step, setStep] = useState(1);
 
   return (
-    <BaseModal isOpen={isModalActive} width={500} height={500}>
-      <section className="flex items-center flex-col gap-4 justify-center w-full ">
+    <BaseModal isOpen={isModalActive} width="500px" height={500}>
+      <section className="flex items-center flex-col gap-4 justify-center w-full">
         <h2 className="text-2xl">Crea tu cuenta 🚀</h2>
         <ProgressBar step={step} />
         <StepCard step={step} setStep={setStep} />

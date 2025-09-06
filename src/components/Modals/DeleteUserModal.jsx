@@ -26,7 +26,7 @@ export const DeleteUserModal = ({
   };
 
   return (
-    <BaseModal width={450} isOpen={isDeleteModalActive}>
+    <BaseModal width="450px" isOpen={isDeleteModalActive}>
       <section className="flex flex-col items-center justify-center gap-4 mt-2">
         <h2 className="text-2xl">Eliminacion de cuenta</h2>
         <p>La cuenta sera eliminada de forma permanente</p>

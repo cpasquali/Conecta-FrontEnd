@@ -19,7 +19,7 @@ export const UpdatePostModal = ({
   };
 
   return (
-    <BaseModal isOpen={isOpenUpdatePostModal} width={400}>
+    <BaseModal isOpen={isOpenUpdatePostModal} width="400px">
       <section className="flex flex-col gap-4 h-30 w-full">
         <button
           onClick={fetchDeletePost}

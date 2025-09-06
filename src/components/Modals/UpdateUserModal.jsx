@@ -35,7 +35,7 @@ export const UpdateUserModal = ({ isModalActive, setIsModalActive }) => {
   };
 
   return (
-    <BaseModal isOpen={isModalActive} width={410}>
+    <BaseModal isOpen={isModalActive} width="410px">
       <h1>Editor de usuario</h1>
       <form
         className="relative flex flex-col justify-center items-center gap-4 w-full "

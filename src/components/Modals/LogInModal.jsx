@@ -10,7 +10,7 @@ export const LogInModal = ({
   const { handleChange, emptyInputs, handleSubmit } = useLoginForm();
 
   return (
-    <BaseModal isOpen={isModalActive} width={500} height={500}>
+    <BaseModal isOpen={isModalActive} width="500px" height={500}>
       <section className="flex flex-col gap-4 w-[80%] justify-center h-full">
         <h2 className="text-2xl text-center absolute top-16 left-1/2 -translate-x-1/2">
           Ingresar 🚀

@@ -15,7 +15,7 @@ export const UserInfoModal = ({ profile, isOpenModal, setIsOpenModal }) => {
   const [isDeleteModalActive, setIsModalDeleteActive] = useState(false);
 
   return (
-    <BaseModal isOpen={isOpenModal} width={610}>
+    <BaseModal isOpen={isOpenModal} width="610px">
       <section className="flex items-center justify-center flex-col gap-6 w-full">
         <img
           className="w-10 h-10 sm:w-22 sm:h-22 rounded-full border-2 object-cover"
