@@ -43,27 +43,23 @@ export const PostCard = ({ post, widthPostCard = "w-full" }) => {
 
   const toggleLike = async () => {
     if (isPostLiked) {
-      await deletePostLike(post.id, user.id);
+      const response = await deletePostLike(post.id, user.id);
+      const updatedPost = response.updatedPost;
       setIsPostLiked(false);
       const newArray = [...postList];
       const index = newArray.findIndex((p) => p.id === post.id);
-      newArray[index] = {
-        ...post,
-        cant_likes: post.cant_likes - 1,
-      };
+      newArray[index] = { ...updatedPost };
       setPostList(newArray);
-      notify("Ya no te gusta la publicacion", "success");
+      notify(response.message, "success");
     } else {
-      await addPostLike(post.id, user.id);
+      const response = await addPostLike(post.id, user.id);
+      const updatedPost = response.updatedPost;
       setIsPostLiked(true);
       const newArray = [...postList];
       const index = newArray.findIndex((p) => p.id === post.id);
-      newArray[index] = {
-        ...post,
-        cant_likes: post.cant_likes + 1,
-      };
+      newArray[index] = { ...updatedPost };
       setPostList(newArray);
-      notify("Te gusta la publicacion", "success");
+      notify(response.message, "success");
     }
   };
 

@@ -16,7 +16,7 @@ export const addPostLike = async (post_id, user_id) => {
       method: "POST",
     });
     const data = await response.json();
-    return data.message;
+    return data;
   } catch (e) {
     console.log(e.message);
   }
@@ -28,7 +28,7 @@ export const deletePostLike = async (post_id, user_id) => {
       method: "DELETE",
     });
     const data = await response.json();
-    return data.message;
+    return data;
   } catch {
     console.log("Error en el servidor");
   }
